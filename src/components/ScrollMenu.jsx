@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { IoMenu } from 'react-icons/io5'
 import logofull from '../assets/logofull.png'
 
-const ScrolldMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, searchFilter, activeIndex, itemRefs, handleCate, handleSearchShow, handleLeftMenu}) => {
+const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter, activeIndex, itemRefs, handleSearchShow, handleLeftMenu}) => {
 
   let rdata = useSelector((state)=>state.product.cartItem)
 
@@ -14,7 +14,7 @@ const ScrolldMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown,
       <div className="flex items-center justify-between relative">
         <div className=''>
           <div className='flex items-center gap-x-2 text-white'>
-            <IoMenu onClick={handleLeftMenu} className='text-[50px] cursor-pointer' />
+            <IoMenu onClick={handleLeftMenu} className='text-[50px] cursor-pointer hover:rotate-180 hover:duration-300' />
             <img src={logofull} alt="" className='h-11 invert brightness-0 cursor-pointer' />
           </div>
         </div>
@@ -32,9 +32,11 @@ const ScrolldMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown,
             </div>
           </div>
           {searchFilter.length > 0 && (
-            <div className='absolute top-[40px] left-0 bg-white shadow w-full z-[99999] max-h-96 overflow-y-scroll rounded-b-xl'>
+            <div className='absolute top-[40px] left-0 bg-white shadow w-full z-[99999] max-h-96 overflow-y-scroll rounded-b-xl' onWheel={(e) => {
+              e.stopPropagation();
+            }}>
               {searchFilter.map((item, index) => (
-                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : "hover:bg-gray-200 "}`} onClick={() => handleSearchShow(item)}>
+                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex === index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200")}`} onClick={() => handleSearchShow(item)}>
                   <h2 className='pl-4'>{item.title}</h2>
                   <img src={item.image} alt="" className='h-8 w-8 mr-4' />
                 </div>
@@ -46,7 +48,7 @@ const ScrolldMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown,
           <div>
             <div className='relative'>
               <Link to={"/wishlist"}>
-                <FaRegHeart className='text-3xl text-white' />
+                <FaRegHeart className='text-3xl text-white hover:text-gray-300' />
                 <div className='absolute -top-2 -right-3'>
                   <h4 className={`${rdata.length < 1 ? "text-red-500 bg-gray-100 shadow h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md" : "text-indigo-950 bg-gray-100 h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md"}`}>{rdata.length}</h4>
                 </div>
@@ -56,7 +58,7 @@ const ScrolldMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown,
           <div>
             <div className='relative'>
               <Link to={"/cart"}>
-                <FaCartPlus className='text-3xl text-white' />
+                <FaCartPlus className='text-3xl text-white hover:text-gray-300' />
                 <div className='absolute -top-2 -right-3'>
                   <h4 className={`${rdata.length < 1 ? "text-red-500 bg-gray-100 shadow h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md" : "text-indigo-950 bg-gray-100 h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md"}`}>{rdata.length}</h4>
                 </div>

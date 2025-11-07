@@ -38,9 +38,11 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
             </div>
           </div>
           {searchFilter.length > 0 && (
-            <div className='absolute top-[40px] left-0 bg-white shadow w-full z-[99999] max-h-96 overflow-y-scroll rounded-b-xl'>
+            <div className='absolute top-[40px] left-0 bg-white shadow w-full z-[99999] max-h-96 overflow-y-scroll rounded-b-xl' onWheel={(e) => {
+    e.stopPropagation();
+  }}>
               {searchFilter.map((item, index) => (
-                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : "hover:bg-gray-200 "}`} onClick={() => handleSearchShow(item)}>
+                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200") }`} onClick={() => handleSearchShow(item)}>
                   <h2 className='pl-4'>{item.title}</h2>
                   <img src={item.image} alt="" className='h-8 w-8 mr-4' />
                 </div>

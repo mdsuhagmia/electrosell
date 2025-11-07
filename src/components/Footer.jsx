@@ -1,7 +1,9 @@
 import React from 'react'
 import Container from './Container'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import { FaFacebookF, FaFacebookMessenger, FaInstagram, FaLinkedinIn, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import logofull from '../assets/logofull.png'
+import { IoLogoYoutube } from 'react-icons/io'
+import { FaSquareInstagram } from 'react-icons/fa6'
 
 const Footer = () => {
   return (
@@ -14,10 +16,11 @@ const Footer = () => {
             We provide exclusive products with premium quality, fast delivery, and guaranteed customer satisfaction.
           </p>
           <div className="flex gap-4 mt-4">
-            <a  className="hover:text-white"><FaFacebookF /></a>
-            <a className="hover:text-white"><FaTwitter /></a>
-            <a className="hover:text-white"><FaInstagram /></a>
-            <a className="hover:text-white"><FaLinkedinIn /></a>
+            <a href='#' className="text-white bg-blue-500 hover:bg-blue-600 duration-100 hover:scale-105 transition-all ease-in-out p-2 rounded-full text-[20px]"><FaFacebookF /></a>
+            <a href='#' className="text-red-500 bg-white hover:bg-gray-300 duration-100 hover:scale-105 transition-all ease-in-out p-2 rounded-full text-[20px]"><IoLogoYoutube /></a>
+            <a href='#' className="text-white bg-[#25D366] hover:bg-[#25d365bf] p-2 rounded-full hover:scale-105 transition-all ease-in-out duration-100 text-[20px]"><FaWhatsapp /></a>
+            <a href='#' className="text-[#dc5321] bg-[#ffffff] hover:bg-gray-300 p-2 rounded-full hover:scale-105 transition-all ease-in-out duration-100 text-[20px]"><FaSquareInstagram /></a>
+            <a href='#' className="text-[#0084FF] bg-[#ffffff] hover:bg-gray-300 p-2 rounded-full hover:scale-105 transition-all ease-in-out duration-100 text-[20px]"><FaFacebookMessenger /></a>
           </div>
         </div>
         <div className='md:w-30 mx-auto'>
