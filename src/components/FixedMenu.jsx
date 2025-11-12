@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoIosArrowDown } from 'react-icons/io'
 import { FaCartPlus } from 'react-icons/fa'
 import { HiOutlineBars3CenterLeft } from 'react-icons/hi2'
 import { useSelector } from 'react-redux'
+import { apiData } from './ContextApi'
+import { ReactTyped } from 'react-typed'
 
 const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, searchFilter, activeIndex, itemRefs, handleCate, handleSearchShow, handleSearchClick}) => {
+
   let rdata = useSelector((state)=>state.product.cartItem)
+  let data = useContext(apiData)
+  let [categories, setCategories] = useState([])
+  
+    useEffect(()=>{
+      setCategories([...new Set(data.map((item)=>item.category))])
+    },[data])
+
   return (
     <div className=''>
       <div className="flex items-center justify-between">
@@ -26,14 +36,23 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
         </div>
         <div className="w-[60%] relative" ref={searchRef}>
           <div className="relative w-full">
-            <input
-              type="search"
-              onChange={handleSearchValue}
-              onKeyDown={handkeKeyDown}
-              className={`w-full py-2 pl-6 pr-36 bg-gray-50 outline-2 outline-indigo-900 focus:outline-blue-600 ${searchFilter.length > 0 ? "rounded-t-xl focus:outline-0" : "rounded-xl"}`}
-              placeholder="Search In Electro Selling"
-            />
-            <div onClick={searchFilter.length > 0 ? handleSearchClick : undefined} className={`w-[20%] absolute top-0 right-0 bg-gray-300 flex items-center justify-center h-full ${searchFilter.length > 0 ? "rounded-tr-xl cursor-pointer hover:bg-gray-400" : "rounded-r-xl cursor-not-allowed"}`}>
+            <ReactTyped
+              strings={categories.map(cat => `Search for ${cat}`)}
+              typeSpeed={40}
+              backSpeed={70}
+              attr="placeholder"
+              loop
+              className='text-indigo-900'
+            >
+              <input
+                type="search"
+                onChange={handleSearchValue}
+                onKeyDown={handkeKeyDown}
+                className={`w-full py-2 pl-6 pr-36 bg-gray-50 outline-2 outline-indigo-900 focus:outline-blue-600 ${searchFilter.length > 0 ? "rounded-t-xl focus:outline-0" : "rounded-xl"}`}
+                placeholder=""
+              />
+            </ReactTyped>
+            <div onClick={searchFilter.length > 0 ? handleSearchClick : undefined} onKeyDown={handkeKeyDown} className={`w-[20%] absolute top-0 right-0 bg-gray-300 flex items-center justify-center h-full ${searchFilter.length > 0 ? "rounded-tr-xl cursor-pointer hover:bg-gray-400" : "rounded-r-xl cursor-not-allowed"}`}>
               <p className='text-center text-black text-[18px] font-bold font-jose'>Search</p>
             </div>
           </div>
@@ -42,7 +61,7 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
               e.stopPropagation();
             }}>
               {searchFilter.map((item, index) => (
-                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200") }`} onClick={() => handleSearchShow(item)}>
+                <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200")}`} onClick={() => handleSearchShow(item)}>
                   <h2 className='pl-4'>{item.title}</h2>
                   <img src={item.image} alt="" className='h-8 w-8 mr-4' />
                 </div>

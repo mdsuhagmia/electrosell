@@ -4,6 +4,8 @@ import { apiData } from './ContextApi'
 import FixedMenu from './FixedMenu'
 import { useNavigate } from 'react-router-dom'
 import ScrolldMenu from './ScrollMenu'
+import logo from '../assets/logofull.png'
+import { IoIosCloseCircle } from 'react-icons/io'
 
 const Menu = () => {
   let data = useContext(apiData)
@@ -122,7 +124,7 @@ const Menu = () => {
   },[leftMenu])
 
   return (
-    <nav className={`py-4 shadow ${isSticky == true ? "fixed top-0 w-full bg-violet-950 z-[9999] left-0" : "bg-indigo-950" }`}>
+    <nav className={`py-3 shadow ${isSticky == true ? "fixed top-0 w-full bg-violet-950 z-[9999] left-0" : "bg-indigo-950" }`}>
       <Container>
         <div>
           {isSticky == true ?
@@ -155,11 +157,17 @@ const Menu = () => {
           }
         </div>
         {leftMenu && (
-            <div className='absolute top-0 right-0 bg-[#0000007c] capitalize z-[99999] w-full h-screen'>
-              <div ref={leftMenuRef} className='bg-white shadow pb-2 capitalize z-[99999] w-1/4 h-screen pl-4 md:pl-6 lg:pl-8 xl:pl-10 2xl:pl-12'>
+            <div className='absolute top-0 right-0 bg-[#0000007c] capitalize z-[99999] w-full h-screen overflow-y-scroll'>
+              <div ref={leftMenuRef} className='bg-white shadow pb-2 capitalize z-[99999] w-1/4 h-screen pl-4 md:pl-6 lg:pl-8 xl:pl-10 2xl:pl-12 pr-4'>
+                <div className='flex items-center justify-between pt-6'>
+                  <img src={logo} alt="logo" className='w-26 cursor-pointer' />
+                  <div onClick={()=>setLeftMenu(false)}>
+                    {leftMenu ? <IoIosCloseCircle className='text-3xl text-indigo-700 cursor-pointer hover:scale-110 hover:text-red-500 transition-all duration-500 ease-in-out' /> : "" }
+                  </div>
+                </div>
                 <ul className='pt-8'>
                   {categoryShow.map((item) => (
-                    <li onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item}</li>
+                    <li onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
                   ))}
                 </ul>
               </div>
