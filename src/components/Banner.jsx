@@ -18,7 +18,7 @@ const Banner = () => {
 
 
   return (
-    <section>
+    <section className='hidden md:block'>
       <div className='h-[200px]'>
         <Slider {...settings} className='banSlick'>
           <BanSlick />

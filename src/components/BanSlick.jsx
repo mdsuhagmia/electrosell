@@ -17,7 +17,7 @@ const BanSlick = () => {
       {cateShow.map((item) => (
         <div className='grid grid-cols-2 gap-x-4 py-12 h-90'>
           <div>
-            <h2 className='text-2xl font-bold font-lat text-red-500 pl-30 pt-2'>New Collection 2025</h2>
+            <h2 className='md:text-2xl font-bold font-lat text-red-500 pl-30 pt-2'>New Collection 2025</h2>
             <h2 className='text-2xl font-bold font-lat text-[#06051d] pl-30 pt-3 leading-[32px]'>{item.title}</h2>
             <h2 className='text-md font-semibold font-lat text-[#000] pl-30 pt-2'>Up to <span className='text-2xl text-red-700'> 50% </span>discount</h2>
             <Link to={`/products/${item.id}`} className='text-md font-semibold font-lat text-[#fff] ml-30 mt-4 bg-gray-950 px-8 py-2 rounded-[5px] inline-block hover:bg-gray-600'>

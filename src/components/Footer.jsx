@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-400 pt-10">
       <Container>
-        <div className="flex justify-between gap-x-12 pb-12">
+        <div className="md:flex justify-between gap-x-12 pb-12">
           <div className='w-[33%]'>
             <img src={logofull} alt="" className="invert brightness-0 w-40 pb-3 cursor-pointer" />
             <p className="text-gray-400 max-w-[350px]">

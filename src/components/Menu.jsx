@@ -126,7 +126,7 @@ const Menu = () => {
   },[leftMenu])
 
   return (
-    <nav className={`py-3 shadow ${isSticky == true ? "fixed top-0 w-full bg-violet-950 z-[9999] left-0" : "bg-indigo-950"}`}>
+    <nav className={`py-3 shadow hidden md:block ${isSticky == true ? "fixed top-0 w-full bg-violet-950 z-[9999] left-0" : "bg-indigo-950"}`}>
       <Container>
         <div>
           {isSticky == true ?

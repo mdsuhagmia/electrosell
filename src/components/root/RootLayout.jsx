@@ -6,6 +6,7 @@ import Footer from '../Footer'
 import { MdOutlineDoubleArrow } from 'react-icons/md'
 import { FaPhone, FaWhatsapp } from 'react-icons/fa'
 import MobileFixMenu from '../MobileFixMenu'
+import MobileMenu from '../MobileMenu'
 
 const RootLayout = () => {
   
@@ -31,6 +32,7 @@ const RootLayout = () => {
     <div>
       <Header />
       <Menu />
+      <MobileMenu/>
       <Outlet />
       <Footer />
       <MobileFixMenu/>

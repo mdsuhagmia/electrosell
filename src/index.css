@@ -5,6 +5,7 @@
 @theme{
   --font-jose: "Josefin Sans", sans-serif;
   --font-lat: "Lato", sans-serif;
+  --breakpoint-xs: 640px,
 }
 
 .banSlick .slick-dots{
@@ -74,6 +75,19 @@
   width: 8px;
   border-radius: 50%;
   background-color: rgb(255, 0, 0);
+}
+@media (max-width: 640px) {
+  .ourall_pro .slick-dots{
+  gap: 5px !important;
+}
+.ourall_pro .slick-dots li button{
+  height: 4px !important;
+  width: 4px !important;
+}
+.ourall_pro .slick-dots li.slick-active button{
+  height: 4px !important;
+  width: 4px !important;
+}
 }
 
 
