@@ -42,33 +42,10 @@ const WomensClothing = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4, // desktop
-    slidesToScroll: 1,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024, // tablet
-        settings: {
-          slidesToShow: 3,
-          arrows: true,
-        }
-      },
-      {
-        breakpoint: 768, // mobile landscape
-        settings: {
-          slidesToShow: 2,
-          arrows: false, // small screen arrow hide kore swipe enable
-        }
-      },
-      {
-        breakpoint: 480, // mobile portrait
-        settings: {
-          slidesToShow: 1,
-          arrows: false,
-        }
-      }
-    ]
   };
 
   return (
@@ -89,9 +66,9 @@ const WomensClothing = () => {
                       className="w-full h-52 object-contain px-6 py-4 bg-gray-300 rounded-t-[5px]" 
                     />
                   </Link>
-                  <div className="p-4 rounded-b-lg text-gray-950">
+                  <div className="p-4 min-h-28 md:min-h-30 rounded-b-lg text-gray-950">
                     <Link to={`/products/${item.id}`}>
-                      <h3 className="text-sm font-semibold line-clamp-2 hover:underline">{item.title}</h3>
+                      <h3 className="text-sm md:text-[17px] lg:text-lg font-semibold line-clamp-2 hover:underline">{item.title}</h3>
                     </Link>
                     <p className="mt-1 text-lg font-bold">${item.price}</p>
                   </div>

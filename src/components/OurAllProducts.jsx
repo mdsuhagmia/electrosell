@@ -13,6 +13,8 @@ import { RiCloseLargeFill } from 'react-icons/ri';
 
 const OurAllProducts = () => {
 
+  let data = useContext(apiData)
+
   function SampleNextArrow(props) {
     const { onClick } = props;
     return (
@@ -41,36 +43,11 @@ const OurAllProducts = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4, // desktop
-    slidesToScroll: 1,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024, // tablet
-        settings: {
-          slidesToShow: 3,
-          arrows: true,
-        }
-      },
-      {
-        breakpoint: 768, // mobile landscape
-        settings: {
-          slidesToShow: 2,
-          arrows: false, // small screen arrow hide kore swipe enable
-        }
-      },
-      {
-        breakpoint: 480, // mobile portrait
-        settings: {
-          slidesToShow: 1,
-          arrows: false,
-        }
-      }
-    ]
   };
-
-    let data = useContext(apiData)
 
     let dispatch = useDispatch()
     let handleCartItem = (item)=>{

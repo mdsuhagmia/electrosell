@@ -15,6 +15,8 @@ import Process from "./pages/Process"
 import WishList from "./pages/WishList"
 import OrderComplete from "./pages/OrderComplete"
 import ForgotPass from "./pages/ForgotPass"
+import MyAccount from "./pages/MyAccount"
+import FAQs from "./pages/FAQs"
 
 let routing = createBrowserRouter(createRoutesFromElements(
   <>
@@ -32,6 +34,8 @@ let routing = createBrowserRouter(createRoutesFromElements(
       <Route path="/login" element={<Login />}></Route>
       <Route path="/forgotpass" element={<ForgotPass />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
+      <Route path="/myaccount" element={<MyAccount />}></Route>
+      <Route path="/faqs" element={<FAQs />}></Route>
     </Route>
     <Route path="*" element={<NotFound />}></Route>
   </>

@@ -61,7 +61,7 @@ const Cart = () => {
           {rdata.length > 0 && (
             <div className='py-8 sm:py-16 flex items-center justify-start lg:justify-center gap-x-2'>
               <FaCartPlus className='text-xl sm:text-4xl text-violet-950' />
-              <h2 className='text-center text-md sm:text-3xl font-jose font-extrabold text-violet-950'>Your Shopping Cart ({rdata.length})</h2>
+              <h2 className='text-center text-[16px] sm:text-3xl font-jose font-extrabold text-violet-950'>Your Shopping Cart ({rdata.length})</h2>
             </div>
           )}
           {rdata.length > 0 ? (
@@ -160,7 +160,7 @@ const Cart = () => {
               </div>
               <div className='md:hidden'>
                 <div className="overflow-x-auto rounded-lg shadow-md">
-                  <table className="min-w-full bg-white border-t-3 border-gray-200">
+                  <table className="min-w-full bg-white border-t-3 border-blue-500">
                     <tbody>
                       {rdata.map((item, index) => (
                         <tr key={item.id} className="border-t-2 border-[#0000001d] hover:bg-gray-50 transition">
@@ -205,7 +205,7 @@ const Cart = () => {
                             </td>
                           </tr>
                           <div className="absolute top-8 sm:top-16 right-0" onClick={() => dispatch(productRemoveAll(item))}>
-                            <h2 className='text-end text-[10px] sm:text-[18px] font-jose font-bold text-white bg-red-500 px-2 sm:px-4 py-1 sm:py-2 rounded-[5px] inline-block cursor-pointer hover:bg-red-400'>Delete All</h2>
+                            <h2 className='text-end text-[12px] sm:text-[18px] font-jose font-bold text-white bg-red-500 px-2 sm:px-4 py-1 sm:py-2 rounded-[5px] inline-block cursor-pointer hover:bg-red-400'>Delete All</h2>
                           </div>
                         </tr>
                       ))}
@@ -250,11 +250,11 @@ const Cart = () => {
               </div>
             </div>
           ) : (
-            <div className="py-12">
+            <div className="pt-12">
               <div className='text-center'>
                 <div className="flex items-center justify-center gap-2 pb-6">
-                  <h2 className="text-4xl font-bold font-jose text-indigo-950">Your cart is Empty</h2>
-                  <BsFillCartXFill className="text-xl text-indigo-950" />
+                  <h2 className="text-2xl sm:text-4xl font-bold font-jose text-indigo-950">Your cart is Empty</h2>
+                  <BsFillCartXFill className="text-2xl sm:text-3xl text-indigo-950" />
                 </div>
                 <Link
                   to="/products"
@@ -265,12 +265,12 @@ const Cart = () => {
               <div>
                 <h2 className='text-green-500 text-[25px] font-semibold font-jose pb-2 pt-8'>Just for you</h2>
               </div>
-              <div className='grid grid-cols-4 gap-x-4'>
+              <div className='grid grid-cols-2 lg:grid-cols-4 gap-x-4'>
                 {suggested.map((item) => (
                   <div className='mb-4 shadow'>
                     <div className='relative group overflow-x-hidden'>
                       <Link to={`/products/${item.id}`}>
-                        <img src={item.image} alt={item.title} className=' bg-gray-300 py-6 object-contain w-full h-60 px-14' />
+                        <img src={item.image} alt={item.title} className=' bg-gray-300 py-6 object-contain w-full h-40 sm:h-60 px-4 md:px-14' />
                       </Link>
                       <div className='absolute top-4 -left-14 group-hover:left-2 opacity-0 group-hover:opacity-100 py-2 transition-all duration-500 ease-in-out'>
                         <div className='pb-4' onClick={() => handleCartItem(item)}>
@@ -292,7 +292,7 @@ const Cart = () => {
                     </div>
                     <div className='py-4 px-3'>
                       <Link to={`/products/${item.id}`}>
-                        <h2 className='text-[14px] font-bold font-jose text-violet-950 hover:underline'>{item.title}</h2>
+                        <h2 className='text-[14px] font-bold font-jose text-violet-950 hover:underline line-clamp-2'>{item.title}</h2>
                       </Link>
                     </div>
                   </div>

@@ -3,6 +3,7 @@ import Container from './Container'
 import { FaFacebookF, FaFacebookMessenger, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa'
 import logofull from '../assets/logofull.png'
 import { IoLogoYoutube } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -60,8 +61,8 @@ const Footer = () => {
           <div className='pb-8 md:pb-0'>
             <h3 className="text-white font-semibold mb-3 text-[18px] md:text-[16px] lg:text-[18px]">Let Us Help You</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">FAQs</a></li>
-              <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Your Account</a></li>
+              <li><Link to={"/faqs"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">FAQs</Link></li>
+              <li><Link to={"/myaccount"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Your Account</Link></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Shipping & Delivery</a></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Returns & Refunds</a></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Chat With Us</a></li>
