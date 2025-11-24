@@ -32,8 +32,8 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
           </div>
           <div className='absolute top-6 left-0 bg-indigo-950 pt-4 pb-2 capitalize z-[99999] w-full opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all ease-in-out duration-300'>
             <ul>
-              {categoryShow.map((item) => (
-                <li onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item}</li>
+              {categoryShow.map((item, index) => (
+                <li key={index} onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item}</li>
               ))}
             </ul>
           </div>

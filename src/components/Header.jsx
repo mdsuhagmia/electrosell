@@ -28,7 +28,7 @@ const Header = () => {
       <Container>
         <div className='flex items-center justify-between'>
           <div>
-            <Link to={"/"} target='_top'>
+            <Link to={"/"}>
               <img src={logofull} alt="" className='h-8 lg:h-12' />
             </Link>
           </div>
@@ -38,28 +38,28 @@ const Header = () => {
               {openMenu == true ? <GrClose className='text-2xl cursor-pointer' /> : "" }
             </div>
               <li className='pb-2 md:pb-0'>
-                <NavLink to={"/"} target='_top' className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
+                <NavLink to={"/"} className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
                   Home
                 </NavLink>
               </li>
               <li className='pb-2 md:pb-0'>
-                <NavLink to={"/products"} target='_top' className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
+                <NavLink to={"/products"} className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
                   Products
                 </NavLink>
               </li>
               <li className='pb-2 md:pb-0'>
-                <NavLink to={"/blog"} target='_top' className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
+                <NavLink to={"/categories"} className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
+                  Categories
+                </NavLink>
+              </li>
+              <li className='pb-2 md:pb-0'>
+                <NavLink to={"/blog"} className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
                   Blog
                 </NavLink>
               </li>
               <li className='pb-2 md:pb-0'>
-                <NavLink to={"/aboutus"} target='_top' className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
+                <NavLink to={"/aboutus"} className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
                   About Us
-                </NavLink>
-              </li>
-              <li className='pb-2 md:pb-0'>
-                <NavLink to={"/contact"} target='_top' className={({isActive})=> `text-[14px] font-jose font-semibold hover:text-violet-600 ${isActive ? "text-red-500" : "text-violet-950" }`}>
-                  Contact
                 </NavLink>
               </li>
             </ul>

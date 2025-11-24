@@ -7,6 +7,7 @@ import Shopex from '../components/Shopex'
 import OurAllProducts from '../components/OurAllProducts'
 
 const Home = () => {
+
   return (
     <>
      <Banner/>

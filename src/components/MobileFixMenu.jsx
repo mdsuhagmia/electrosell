@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
-import { BsFillInfoCircleFill } from "react-icons/bs";
-import { FaBlog, FaRegHeart, FaShoppingCart } from "react-icons/fa";
-import { MdContactMail } from "react-icons/md";
+import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 
 const MobileFixMenu = () => {

@@ -167,8 +167,8 @@ const Menu = () => {
               </div>
             </div>
             <ul className='pt-8'>
-              {categoryShow.map((item) => (
-                <li onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
+              {categoryShow.map((item, index) => (
+                <li key={index} onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
               ))}
             </ul>
             <div className='py-8'>

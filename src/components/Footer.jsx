@@ -17,22 +17,22 @@ const Footer = () => {
             </p>
             <div className='flex items-center gap-x-3 lg:gap-x-4 pt-6'>
               <div>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/profile.php?id=61583813049385&sk=about" target="_blank" rel="noopener noreferrer">
                   <FaFacebookF className="bg-[#1877F2] text-[30px] md:text-[28px] lg:text-[36px] text-white p-2 rounded-full hover:scale-125 transition duration-500 ease-in-out " />
                 </a>
               </div>
               <div>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://youtube.com/@electroselling?si=h36_yrwEmNM0H6PR" target="_blank" rel="noopener noreferrer">
                   <IoLogoYoutube className="bg-[#FF0000] text-white p-2 rounded-full text-[30px] md:text-[28px] lg:text-[36px] hover:scale-125 transition duration-500 ease-in-out" />
                 </a>
               </div>
               <div>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.tiktok.com%2F%40electroselling%3Fis_from_webapp%3D1%26sender_device%3Dpc%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExY0oxTUtMYmxab0JoZGh4NXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6fywJoqwUL6S1HAtU7mjswBT682YNuS5l5Pn0we7M4Rm53U29MAbcD9l1vSQ_aem_poiydQaOIrI-96LD3-smhg&h=AT1WV02c0d49WqJuPo9SAsCo-KI8SoTwFafPgBrfmGA1_a3E8M5OeiDfwJIHPlJM_Cdqku2TiMej5P802gwjvQAQJU9Q2hc0tIkxSK_iMzeKMtwI2Z5DgnWrss8M-NgupR7HYg">
                   <FaTiktok className="bg-black text-white p-2 rounded-full text-[30px] md:text-[28px] lg:text-[36px] hover:scale-125 transition duration-500 ease-in-out" />
                 </a>
               </div>
               <div>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Felectroselling25%2F%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExSW01dUtybVlSRnpQU1R5MHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5gGxddAEsooJAF0gSPn4RJP65EWfCrvysF68PWRRNY6se9ODyhVLG--skbDQ_aem_X6zhwHLjgKQ7hAD_ndYV-A&h=AT12Wc0gkIfYyxqWj7PKdykaVKDQpyVwd2btVaYiufeVYlR8YuN3x-arQ-JBQH-XTgIlAsdW6LrhZjzvbplEnCweh0PNHz8Eo3urHubmQgVwgDQB3h9elCUUgeN8QOQs0wc1uw" target="_blank" rel="noopener noreferrer">
                   <FaInstagram className="bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] text-white p-2 rounded-full text-[30px] md:text-[28px] lg:text-[36px] hover:scale-125 transition duration-500 ease-in-out" />
                 </a>
               </div>
@@ -51,11 +51,11 @@ const Footer = () => {
           <div className='pb-8 md:pb-0'>
             <h3 className="text-white font-semibold mb-3 text-[18px] md:text-[16px] lg:text-[18px]">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Home</a></li>
-              <li><a href="/products" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Products</a></li>
-              <li><a href="/blog" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Blog</a></li>
-              <li><a href="/aboutus" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">About Us</a></li>
-              <li><a href="/contact" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Contact</a></li>
+              <li><Link to={"/"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Home</Link></li>
+              <li><Link to={"/products"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Products</Link></li>
+              <li><Link to={"/categories"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Categories</Link></li>
+              <li><Link to={"/blog"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Blog</Link></li>
+              <li><Link to={"/aboutus"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">About Us</Link></li>
             </ul>
           </div>
           <div className='pb-8 md:pb-0'>
@@ -63,7 +63,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to={"/faqs"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">FAQs</Link></li>
               <li><Link to={"/myaccount"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Your Account</Link></li>
-              <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Shipping & Delivery</a></li>
+              <li><Link to={"/shippingdelivery"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Shipping & Delivery</Link></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Returns & Refunds</a></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Chat With Us</a></li>
             </ul>
@@ -71,19 +71,19 @@ const Footer = () => {
           <div className=''>
             <h3 className="text-white font-semibold mb-3 text-[18px] md:text-[16px] lg:text-[18px]">Contact Us</h3>
             <p className="text-gray-400 hover:underline hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">
-              <a href="tel:+8801731-378743" aria-label="Call Md Shohag Mia">01731-378743</a>
+              <a href="tel:+8801762556958" aria-label="Call Electro Selling">01762556958</a>
             </p>
             <p className="text-gray-400 hover:underline hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">
-              <a href="mailto:mdshohagmia53200@gmail.com" aria-label="Send email to Md Shohag Mia">mdshohagmia53200@gmail.com</a>
+              <a href="mailto:electroselling25@gmail.com" aria-label="Send email to Electro Selling">electroselling25@gmail.com</a>
             </p>
             <p className="text-gray-400 hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">
               <a
-                href="https://www.google.com/maps/place/Jamalpur+Sadar,+Mymensingh,+Bangladesh"
+                href="https://maps.app.goo.gl/E7iuccEHKFa1bc1o6"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                Jamalpur Sadar, Mymensingh, <br /> Bangladesh
+                Dhaka, <br /> Bangladesh
               </a>
             </p>
           </div>

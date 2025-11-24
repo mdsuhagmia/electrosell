@@ -5,7 +5,6 @@ import Products from "./pages/Products"
 import NotFound from "./pages/NotFound"
 import Blog from "./pages/Blog"
 import AboutUs from "./pages/AboutUs"
-import Contact from "./pages/Contact"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import ProductDetails from "./components/ProductDetails"
@@ -17,6 +16,10 @@ import OrderComplete from "./pages/OrderComplete"
 import ForgotPass from "./pages/ForgotPass"
 import MyAccount from "./pages/MyAccount"
 import FAQs from "./pages/FAQs"
+import ShippingDelivery from "./pages/ShippingDelivery"
+import Categories from "./pages/Categories"
+import { Toaster } from "react-hot-toast"
+import Dashboard from "./components/Dashboard"
 
 let routing = createBrowserRouter(createRoutesFromElements(
   <>
@@ -27,15 +30,17 @@ let routing = createBrowserRouter(createRoutesFromElements(
       <Route path="/cart" element={<Cart/>}></Route>
       <Route path="/process" element={<Process/>}></Route>
       <Route path="/ordercomplete" element={<OrderComplete/>}></Route>
+      <Route path="/categories" element={<Categories />}></Route>
       <Route path="/blog" element={<Blog />}></Route>
       <Route path="/aboutus" element={<AboutUs />}></Route>
-      <Route path="/contact" element={<Contact />}></Route>
       <Route path="/wishlist" element={<WishList/>}></Route>
       <Route path="/login" element={<Login />}></Route>
-      <Route path="/forgotpass" element={<ForgotPass />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
+      <Route path="/forgotpass" element={<ForgotPass />}></Route>
       <Route path="/myaccount" element={<MyAccount />}></Route>
+      <Route path="/dashboard" element={<Dashboard />}></Route>
       <Route path="/faqs" element={<FAQs />}></Route>
+      <Route path="/shippingdelivery" element={<ShippingDelivery />}></Route>
     </Route>
     <Route path="*" element={<NotFound />}></Route>
   </>
@@ -48,6 +53,10 @@ function App() {
       <RouterProvider router={routing}></RouterProvider>
       <ToastContainer
         autoClose={1000}
+      />
+      <Toaster
+        position="top-center"
+        autoClose={3000}
       />
     </div>
   )
