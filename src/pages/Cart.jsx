@@ -8,7 +8,7 @@ import { FaCartPlus, FaHeart } from 'react-icons/fa'
 import { CiZoomIn } from 'react-icons/ci'
 import { RiCloseLargeFill } from 'react-icons/ri'
 import { apiData } from '../components/ContextApi'
-import { toast } from 'react-toastify'
+import toast from 'react-hot-toast'
 
 const Cart = () => {
   const rdata = useSelector((state) => state.product.cartItem)

@@ -20,6 +20,7 @@ import ShippingDelivery from "./pages/ShippingDelivery"
 import Categories from "./pages/Categories"
 import { Toaster } from "react-hot-toast"
 import Dashboard from "./components/Dashboard"
+import PriveteRoutes from "./routes/PriveteRoutes"
 
 let routing = createBrowserRouter(createRoutesFromElements(
   <>
@@ -38,7 +39,7 @@ let routing = createBrowserRouter(createRoutesFromElements(
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/forgotpass" element={<ForgotPass />}></Route>
       <Route path="/myaccount" element={<MyAccount />}></Route>
-      <Route path="/dashboard" element={<Dashboard />}></Route>
+      <Route path="/dashboard" element={<PriveteRoutes><Dashboard/></PriveteRoutes>}></Route>
       <Route path="/faqs" element={<FAQs />}></Route>
       <Route path="/shippingdelivery" element={<ShippingDelivery />}></Route>
     </Route>

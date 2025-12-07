@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import Swal from 'sweetalert2'
 import { useAuth } from '../authContext/AuthContext'
+import toast from 'react-hot-toast'
 
 const Login = () => {
 
   let [showPass, setShowPass] = useState(false);
 
   const {register, handleSubmit, formState: { errors },} = useForm()
-  const {loginWithEmail} = useAuth()
+  const {loginWithEmail, googleLogin} = useAuth()
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
@@ -49,6 +50,15 @@ const Login = () => {
       icon: "error"
     });
   }
+    }
+  }
+
+  let handleGoogleLogin = async ()=>{
+    try {
+      await googleLogin();
+      navigate("/dashboard")
+    } catch (error) {
+      toast.error(error.message)
     }
   }
 
@@ -121,13 +131,9 @@ const Login = () => {
               <div>
                 <p className="text-[14px] sm:text-[16px] font-bold font-jose text-white pt-6 text-center">Sign in with</p>
                 <div className="flex justify-center gap-x-4 items-center pt-4">
-                  <div className="flex items-center justify-center gap-2 px-6 py-2 bg-white rounded-md shadow hover:bg-gray-200 cursor-pointer transition-all">
+                  <div onClick={handleGoogleLogin} className="flex items-center justify-center gap-2 px-6 py-2 bg-white rounded-md shadow hover:bg-gray-300 cursor-pointer transition-all">
                     <FcGoogle className="text-blue-500 text-lg" />
                     <span className="text-gray-700 font-medium">Google</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 px-6 py-2 bg-white rounded-md shadow hover:bg-gray-200 cursor-pointer transition-all">
-                    <FaFacebookF className="text-indigo-500 text-lg" />
-                    <span className="text-indigo-500 font-medium">Facebook</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 px-6 py-2 bg-emerald-500 rounded-md shadow hover:bg-emerald-600 cursor-pointer transition-all">
                     <FaPhoneAlt className="text-white text-lg" />

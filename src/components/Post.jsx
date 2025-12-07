@@ -4,9 +4,9 @@ import { MdAutorenew } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addToCart, addToWishlist } from './slice/productSlice'
-import { toast } from 'react-toastify'
 import { CiZoomIn } from 'react-icons/ci'
 import { RiCloseLargeFill } from 'react-icons/ri'
+import toast from 'react-hot-toast'
 
 const Post = ({ allPage, cateFilShow, list }) => {
 
@@ -46,7 +46,7 @@ const Post = ({ allPage, cateFilShow, list }) => {
   const alreadyExist = wishlist.find((wishIte) => wishIte.id === item.id)
 
   if (alreadyExist) {
-    toast.warning("Already in Wishlist!")
+    toast.error("Already in Wishlist!")
   } else {
     dispatch(addToWishlist(item))
     toast.success("Added to Wishlist Successfully!")

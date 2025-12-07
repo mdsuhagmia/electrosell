@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import Container from './Container'
 import Slider from 'react-slick';
 import { apiData } from './ContextApi';
-import { MdArrowBackIosNew, MdArrowForwardIos, MdAutorenew, MdZoomIn } from 'react-icons/md';
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
 import { CiZoomIn } from 'react-icons/ci';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, addToWishlist } from './slice/productSlice';
-import { toast } from 'react-toastify';
 import { RiCloseLargeFill } from 'react-icons/ri';
+import toast from 'react-hot-toast';
 
 const OurAllProducts = () => {
 
@@ -60,7 +60,7 @@ const OurAllProducts = () => {
       const alreadyExist = wishlist.find((wishIte) => wishIte.id === item.id)
     
       if (alreadyExist) {
-        toast.warning("Already in Wishlist!")
+        toast.error("Already in Wishlist!")
       } else {
         dispatch(addToWishlist(item))
         toast.success("Added to Wishlist Successfully!")

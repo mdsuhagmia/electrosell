@@ -62,10 +62,10 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-3 text-[18px] md:text-[16px] lg:text-[18px]">Let Us Help You</h3>
             <ul className="space-y-2">
               <li><Link to={"/faqs"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">FAQs</Link></li>
-              <li><Link to={"/myaccount"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Your Account</Link></li>
+              <li><Link to={"/dashboard"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Your Account</Link></li>
               <li><Link to={"/shippingdelivery"} className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Shipping & Delivery</Link></li>
               <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Returns & Refunds</a></li>
-              <li><a href="#" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Chat With Us</a></li>
+              <li><a href="https://wa.me/8801762556958" target='_blank' rel="noopener noreferrer" className="hover:text-white text-[16px] md:text-[14px] lg:text-[16px]">Chat With Us</a></li>
             </ul>
           </div>
           <div className=''>

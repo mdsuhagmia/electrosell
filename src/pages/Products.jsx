@@ -51,6 +51,7 @@ const Products = () => {
 
   let handleChangeValue = (e)=>{
     setPerPage(e.target.value)
+    setMpriceOpen(false)
   }
 
   let handleMatchValue = (e)=>{
@@ -210,7 +211,7 @@ const Products = () => {
               </div>
             </div>
             <div className='lg:hidden flex justify-between items-center py-4'>
-              <div className={``}>
+              <div>
                 <h2 className={`relative text-[16px] sm:text-[18px] text-white font-semibold font-jose py-2 px-4 sm:px-6 rounded-[5px] cursor-pointer ${selectedCategory ? "bg-blue-500" : "bg-black hover:bg-[#000000a7]" } `} onClick={() => setMcateOpen(!mcateOpen)}>Shop By Category</h2>
                 <div className={`pb-8 fixed top-0 left-0 bg-white shadow-2xl w-[60%] sm:w-[40%] md:w-[30%] px-2 py-6 z-[99999] h-screen transition-all duration-500 ease-in-out transform ${mcateOpen ? "translate-x-0" : "-translate-x-full"}`} ref={mcateRef}>
                   <div className='flex items-center justify-between pb-6'>

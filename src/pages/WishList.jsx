@@ -6,9 +6,10 @@ import { RiCloseLargeFill, RiDeleteBin6Line } from 'react-icons/ri'
 import { addToCart, addToWishlist, removeAllWishlist, removeWishlist } from '../components/slice/productSlice'
 import { BsFillCartXFill } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import { apiData } from '../components/ContextApi'
 import { CiZoomIn } from 'react-icons/ci'
+import Swal from 'sweetalert2'
+import toast from 'react-hot-toast'
 
 const WishList = () => {
 
@@ -16,7 +17,24 @@ const WishList = () => {
   let dispatch = useDispatch()
 
   let handleAllDelete = (item)=>{
-    dispatch(removeAllWishlist(item))
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone. All items will be permanently removed.!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeAllWishlist(item))
+        Swal.fire({
+          title: "Deleted successfully!",
+          text: " All item successfully removed from your Wishlist.",
+          icon: "success"
+        });
+      }
+    });
   }
 
   let handleMoveCart = (item)=>{
@@ -41,6 +59,27 @@ const WishList = () => {
   let handleWish = (item)=>{
     dispatch(addToWishlist(item))
     toast.success("Add to Wishlist Successfully");
+  }
+
+  let handleDeleteWish = (item)=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to permanently remove this item? This action cannot be undone.!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeWishlist(item))
+        Swal.fire({
+          title: "Deleted successfully!",
+          text: "Item successfully removed from your Wishlist..",
+          icon: "success"
+        });
+      }
+    });
   }
 
   let [zoomIn, setZoomIn] = useState(false)
@@ -94,7 +133,7 @@ const WishList = () => {
                         <td className="px-6 py-4 text-gray-700 font-semibold">${item.price}</td>
                         <td className="px-6 py-4">
                           <button
-                            onClick={() => dispatch(removeWishlist(index))}
+                            onClick={() =>handleDeleteWish(index)}
                             className="text-red-500 hover:text-red-800 font-semibold cursor-pointer text-xl">
                             <RiDeleteBin6Line />
                           </button>

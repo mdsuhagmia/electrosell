@@ -24,6 +24,7 @@ const MobileMenu = () => {
     let handleCate = (citem)=>{
       let cateFill = data.filter((item)=>item.category === citem)
       navigate('/products', { state: { cateData: cateFill, category: citem } })
+      setLeftMenu(false)
     }
   
     let [search, setSearch] = useState("")

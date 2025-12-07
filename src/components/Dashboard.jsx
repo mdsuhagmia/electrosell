@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../authContext/AuthContext";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -51,6 +52,11 @@ export default function Dashboard() {
     setUser(prev => ({ ...prev, avatar: url }));
   }
 
+  let {logout} = useAuth()
+  let handleLogout = ()=>{
+    logout();
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -98,7 +104,7 @@ export default function Dashboard() {
 
             <div className="mt-6 flex gap-3">
               <button onClick={() => setEditing(true)} className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md shadow">Edit Profile</button>
-              <button onClick={() => { setForm(user); setEditing(true); }} className="px-4 py-2 bg-gray-100 rounded-md shadow">Copy</button>
+              <button onClick={handleLogout} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow cursor-pointer">Logout</button>
             </div>
           </div>
 

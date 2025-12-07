@@ -35,7 +35,7 @@ const Menu = () => {
     }
   }
 
-  //! search btn click logic
+  // search btn click logic
   let handleSearchClick = () => {
     if (searchFilter.length > 0) {
       navigate('/products', { state: { cateData: searchFilter, category: 'Search Results' } });
@@ -168,7 +168,12 @@ const Menu = () => {
             </div>
             <ul className='pt-8'>
               {categoryShow.map((item, index) => (
-                <li key={index} onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
+                <li key={index} onClick={
+                  () =>{
+                    handleCate(item)
+                    setLeftMenu(false)
+                  }
+                } className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
               ))}
             </ul>
             <div className='py-8'>
