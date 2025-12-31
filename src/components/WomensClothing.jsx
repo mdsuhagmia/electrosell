@@ -10,7 +10,7 @@ const WomensClothing = () => {
   let [cateShow, setCateShow] = useState([])
 
   useEffect(()=>{
-    let cateFilter = data.filter((item)=>item.category === "women's clothing")
+    let cateFilter = data.filter((item)=>item.category.name === "Home Decor")
     setCateShow(cateFilter)
   },[data])
 
@@ -53,7 +53,7 @@ const WomensClothing = () => {
       <Container>
         <div>
           <h2 className="text-lg sm:text-3xl md:text-4xl text-indigo-950 text-center pb-6 font-bold font-jose">
-            Best Sellers in Women's Clothing
+            Best Sellers in Home Decor
           </h2>
           <Slider {...settings} className='wo_clothing'>
             {cateShow.map((item) => (
@@ -61,7 +61,7 @@ const WomensClothing = () => {
                 <div className="bg-white rounded-[8px] shadow-xl mb-6">
                   <Link to={`/products/${item.id}`}>
                     <img 
-                      src={item.image} 
+                      src={item.images[0]} 
                       alt={item.title}
                       className="w-full h-52 object-contain px-6 py-4 bg-gray-300 rounded-t-[5px]" 
                     />

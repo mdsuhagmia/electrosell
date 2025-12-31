@@ -55,7 +55,7 @@ const Post = ({ allPage, cateFilShow, list }) => {
 
   let [zoomIn, setZoomIn] = useState(false)
   let handleZoomIn = (item) => {
-    setZoomIn(item.image)
+    setZoomIn(item.images[0])
   }
 
   let zoomRef = useRef()
@@ -75,8 +75,8 @@ const Post = ({ allPage, cateFilShow, list }) => {
         {catefilterSl.map((item) => (
           <div key={item.id} className="bg-white rounded-[8px] shadow-xl mb-6">
             <div className='relative group'>
-              <Link to={`/products/${item.id}`}>
-                <img src={item.image} alt={item.title}
+              <Link to={`/products/${item.slug}`}>
+                <img src={item.images[1]} alt={item.title}
                   className="w-full h-52 object-contain px-8 py-4 bg-gra-100 bg-gray-300 rounded-t-[5px]" />
               </Link>
               <div className='absolute bottom-0 left-2 opacity-0 group-hover:opacity-100 py-2'>
@@ -109,8 +109,8 @@ const Post = ({ allPage, cateFilShow, list }) => {
         {allPage.map((item) => (
           <div key={item.id} className="bg-white rounded-[8px] shadow-xl mb-6">
             <div className='relative group overflow-hidden'>
-              <Link to={`/products/${item.id}`}>
-                <img src={item.image} alt={item.title}
+              <Link to={`/products/${item.slug}`}>
+                <img src={item.images[1]} alt={item.title}
                   className="w-full h-52 object-contain px-8 py-4 bg-gra-100 bg-gray-300 rounded-t-[5px]" />
               </Link>
               <div className='absolute bottom-0 -left-14 group-hover:left-2 opacity-0 group-hover:opacity-100 py-2 transition-all duration-500 ease-in-out'>

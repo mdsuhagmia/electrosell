@@ -20,28 +20,28 @@ import ShippingDelivery from "./pages/ShippingDelivery"
 import Categories from "./pages/Categories"
 import { Toaster } from "react-hot-toast"
 import Dashboard from "./components/Dashboard"
-import PriveteRoutes from "./routes/PriveteRoutes"
+// import PriveteRoutes from "./routes/PriveteRoutes"
 
 let routing = createBrowserRouter(createRoutesFromElements(
   <>
     <Route element={<RootLayout />}>
       <Route path="/" element={<Home />}></Route>
       <Route path="/products" element={<Products />}></Route>
-      <Route path="/products/:id" element={<ProductDetails/>}></Route>
+      <Route path="/products/:slug" element={<ProductDetails/>}></Route>
       <Route path="/cart" element={<Cart/>}></Route>
       <Route path="/process" element={<Process/>}></Route>
       <Route path="/ordercomplete" element={<OrderComplete/>}></Route>
       <Route path="/categories" element={<Categories />}></Route>
-      <Route path="/blog" element={<Blog />}></Route>
+      {/*<Route path="/blog" element={<Blog />}></Route>
       <Route path="/aboutus" element={<AboutUs />}></Route>
       <Route path="/wishlist" element={<WishList/>}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/forgotpass" element={<ForgotPass />}></Route>
       <Route path="/myaccount" element={<MyAccount />}></Route>
-      <Route path="/dashboard" element={<PriveteRoutes><Dashboard/></PriveteRoutes>}></Route>
-      <Route path="/faqs" element={<FAQs />}></Route>
-      <Route path="/shippingdelivery" element={<ShippingDelivery />}></Route>
+      {/* <Route path="/dashboard" element={<PriveteRoutes><Dashboard/></PriveteRoutes>}></Route> */}
+      {/* <Route path="/faqs" element={<FAQs />}></Route>
+      <Route path="/shippingdelivery" element={<ShippingDelivery />}></Route> */}
     </Route>
     <Route path="*" element={<NotFound />}></Route>
   </>

@@ -94,7 +94,7 @@ const OurAllProducts = () => {
                 <div key={item.id} className="bg-white rounded-[8px] shadow-xl mb-6 min-h-[320px]">
                   <div className='relative group overflow-hidden'>
                     <Link to={"/products"} className=''>
-                      <img src={item.image} alt={item.title}
+                      <img src={item.images[2]} alt={item.title}
                         className="w-full h-52 object-contain px-6 py-4 bg-gra-100 bg-gray-300 rounded-t-[5px]" />
                     </Link>
                     <div className='absolute top-4 -left-14 group-hover:left-2 opacity-0 group-hover:opacity-100 py-2 transition-all duration-500 ease-in-out'>

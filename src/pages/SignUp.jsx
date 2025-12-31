@@ -1,11 +1,11 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import Container from "../components/Container";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaFacebookF, FaPhoneAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "../authContext/AuthContext";
+// import { useAuth } from "../authContext/AuthContext";
 import Swal from "sweetalert2";
 
 const SignUp = () => {

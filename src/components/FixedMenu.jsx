@@ -15,7 +15,7 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
   let [categories, setCategories] = useState([])
   
     useEffect(()=>{
-      setCategories([...new Set(data.map((item)=>item.category))])
+      setCategories([...new Set(data.map((item)=>item.category.name))])
     },[data])
 
   let [typedText, setTypedText] = useState("");
@@ -33,7 +33,7 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
           <div className='absolute top-6 left-0 bg-indigo-950 pt-4 pb-2 capitalize z-[99999] w-full opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all ease-in-out duration-300'>
             <ul>
               {categoryShow.map((item, index) => (
-                <li key={index} onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item}</li>
+                <li key={index} onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item.name}</li>
               ))}
             </ul>
           </div>
@@ -71,7 +71,7 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
               {searchFilter.map((item, index) => (
                 <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex == index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200")}`} onClick={() => handleSearchShow(item)}>
                   <h2 className='pl-4'>{item.title}</h2>
-                  <img src={item.image} alt="" className='h-8 w-8 mr-4' />
+                  <img src={item.images?.[0]} alt="" className='h-8 w-8 mr-4' />
                 </div>
               ))}
             </div>

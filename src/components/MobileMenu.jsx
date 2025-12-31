@@ -17,12 +17,12 @@ const MobileMenu = () => {
     let [categoryShow, setCategoryShow] = useState([])
   
     useEffect(()=>{
-      setCategoryShow([...new Set(data.map((item)=>item.category))])
+      setCategoryShow([...new Set(data.map((item)=>item.category.name))])
     },[data])
   
     let navigate = useNavigate()
     let handleCate = (citem)=>{
-      let cateFill = data.filter((item)=>item.category === citem)
+      let cateFill = data.filter((item)=>item.category.name === citem)
       navigate('/products', { state: { cateData: cateFill, category: citem } })
       setLeftMenu(false)
     }
@@ -64,7 +64,7 @@ const MobileMenu = () => {
     },[])
   
     let handleSearchShow = (item)=>{
-      navigate(`/products/${item.id}`)
+      navigate(`/products/${item._id}`)
       setSearchFilter([])
       setSearch("")
     }
@@ -135,7 +135,7 @@ const MobileMenu = () => {
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category))])
+    setCategories([...new Set(data.map((item) => item.category.name))])
   }, [data])
 
   return (
@@ -189,7 +189,7 @@ const MobileMenu = () => {
                 {searchFilter.map((item, index) => (
                   <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-2 sm:py-6 cursor-pointer ${activeIndex === index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200")}`} onClick={() => handleSearchShow(item)}>
                     <h2 className='pl-4 text-[10px] sm:text-[16px]'>{item.title}</h2>
-                    <img src={item.image} alt="" className='h-8 w-8 mr-4' />
+                    <img src={item.images[0]} alt="" className='h-8 w-8 mr-4' />
                   </div>
                 ))}
               </div>
@@ -205,8 +205,8 @@ const MobileMenu = () => {
               </div>
             </div>
             <ul className='pt-8'>
-              {categoryShow.map((item) => (
-                <li onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
+              {categoryShow.map((item, index) => (
+                <li key={index} onClick={() => handleCate(item)} className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>
               ))}
             </ul>
             <div className='py-8'>

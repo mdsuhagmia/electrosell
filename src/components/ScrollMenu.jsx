@@ -17,7 +17,7 @@ const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter,
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category))])
+    setCategories([...new Set(data.map((item) => item.category.name))])
   }, [data])
 
   return (
@@ -58,7 +58,7 @@ const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter,
               {searchFilter.map((item, index) => (
                 <div ref={el => itemRefs.current[index] = el} className={`flex items-center justify-between py-6 cursor-pointer ${activeIndex === index ? "bg-gray-200" : (activeIndex !== -1 ? "" : "hover:bg-gray-200")}`} onClick={() => handleSearchShow(item)}>
                   <h2 className='pl-4'>{item.title}</h2>
-                  <img src={item.image} alt="" className='h-8 w-8 mr-4' />
+                  <img src={item.images?.[0]} alt="" className='h-8 w-8 mr-4' />
                 </div>
               ))}
             </div>

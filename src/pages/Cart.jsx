@@ -40,7 +40,7 @@ const Cart = () => {
 
   let [zoomIn, setZoomIn] = useState(false)
   let handleZoomIn = (item) => {
-    setZoomIn(item.image)
+    setZoomIn(item.images?.[0])
   }
 
   let zoomRef = useRef()
@@ -82,10 +82,10 @@ const Cart = () => {
                       {rdata.map((item, index) => (
                         <tr key={item.id} className="border-t-2 border-[#0000001d] hover:bg-gray-50 transition">
                           <td className="px-6 py-4 flex items-center gap-4">
-                            <img src={item.image} alt={item.title} className="h-20 w-20 object-contain" />
+                            <img src={item.images?.[0]} alt={item.title} className="h-20 w-20 object-contain" />
                             <tr>
                               <h2 className="font-semibold font-jose text-indigo-950 text-[14px] lg:text-[16px]">{item.title}</h2>
-                              <h3 className="font-medium font-lat text-gray-600 text-[12px] lg:text-[16px]">{item.category}</h3>
+                              <h3 className="font-medium font-lat text-gray-600 text-[12px] lg:text-[16px]">{item.category.name}</h3>
                             </tr>
                           </td>
                           <td className="px-6 py-4 text-gray-700 font-semibold">${item.price}</td>
@@ -165,10 +165,10 @@ const Cart = () => {
                       {rdata.map((item, index) => (
                         <tr key={item.id} className="border-t-2 border-[#0000001d] hover:bg-gray-50 transition">
                           <td className="px-6 py-4 flex items-center gap-4">
-                            <img src={item.image} alt={item.title} className="h-20 w-20 object-contain" />
+                            <img src={item.images?.[0]} alt={item.title} className="h-20 w-20 object-contain" />
                             <tr>
                               <h2 className="font-semibold font-jose text-indigo-950">{item.title}</h2>
-                              <h3 className="font-medium font-lat text-gray-600">{item.category}</h3>
+                              <h3 className="font-medium font-lat text-gray-600">{item.category.name}</h3>
                             </tr>
                           </td>
                           <tr className='flex items-center justify-between px-6'>
@@ -269,8 +269,8 @@ const Cart = () => {
                 {suggested.map((item) => (
                   <div className='mb-4 shadow'>
                     <div className='relative group overflow-x-hidden'>
-                      <Link to={`/products/${item.id}`}>
-                        <img src={item.image} alt={item.title} className=' bg-gray-300 py-6 object-contain w-full h-40 sm:h-60 px-4 md:px-14' />
+                      <Link to={`/products/${item.slug}`}>
+                        <img src={item.images[0]} alt={item.title} className=' bg-gray-300 py-6 object-contain w-full h-40 sm:h-60 px-4 md:px-14' />
                       </Link>
                       <div className='absolute top-4 -left-14 group-hover:left-2 opacity-0 group-hover:opacity-100 py-2 transition-all duration-500 ease-in-out'>
                         <div className='pb-4' onClick={() => handleCartItem(item)}>
@@ -291,7 +291,7 @@ const Cart = () => {
                       </div>
                     </div>
                     <div className='py-4 px-3'>
-                      <Link to={`/products/${item.id}`}>
+                      <Link to={`/products/${item.slug}`}>
                         <h2 className='text-[14px] font-bold font-jose text-violet-950 hover:underline line-clamp-2'>{item.title}</h2>
                       </Link>
                     </div>

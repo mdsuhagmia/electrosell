@@ -15,20 +15,20 @@ const ShopTopCategory = () => {
 
   useEffect(()=>{
 
-    setSh([...new Set(data.map((item)=>item.category))])
+    setSh([...new Set(data.map((item)=>item.category.name))])
     
-    let cateSingle = data.filter((item)=>item.category === "men's clothing")
+    let cateSingle = data.filter((item)=>item.category.name === "Home Decor")
     setShopCategory(cateSingle)
 
-    let cateSingle1 = data.filter((item)=>item.category === "women's clothing")
+    let cateSingle1 = data.filter((item)=>item.category.name === "Health & Beauty")
     let exclude1 = [1, 2]
     let cateFil1 = cateSingle1.filter((_,index)=>!exclude1.includes(index))
     setShopCategory1(cateFil1)
 
-    let cateSingle2 = data.filter((item)=>item.category === "jewelery")
+    let cateSingle2 = data.filter((item)=>item.category.name === "Home Decor")
     setShopCategory2(cateSingle2)
 
-    let cateSingle3 = data.filter((item)=>item.category === "electronics")
+    let cateSingle3 = data.filter((item)=>item.category.name === "Health & Beauty")
     let excluse = [1, 4, 6,]
     let caeFil = cateSingle3.filter((_, index)=> !excluse.includes(index))
     setShopCategory3(caeFil)
@@ -37,7 +37,7 @@ const ShopTopCategory = () => {
    
   let navigate = useNavigate()
   let handleCate = (citem)=>{
-    let cateFill = data.filter((item)=>item.category === citem)
+    let cateFill = data.filter((item)=>item.category.name === citem)
     navigate('/products', { state: { cateData: cateFill, category: citem } })
   }
 
@@ -53,7 +53,7 @@ const ShopTopCategory = () => {
                 <div className='bg-white rounded-[5px] mb-2 shadow overflow-hidden'>
                   <div className='bg-gray-200 rounded-t-[5px] flex justify-center'>
                     <Link to={`/products/${item.id}`}>
-                      <img src={item.image} alt="" className='h-40 py-4 object-contain w-full px-4' />
+                      <img src={item.images[0]} alt="" className='h-40 py-4 object-contain w-full px-4' />
                     </Link>
                   </div>
                   <div className='px-2 py-4'>
@@ -75,7 +75,7 @@ const ShopTopCategory = () => {
                 <div className='bg-white rounded-[5px] mb-2 shadow'>
                   <div className='bg-gray-200 rounded-t-[5px] flex justify-center'>
                     <Link to={`/products/${item.id}`}>
-                      <img src={item.image} alt="" className='h-40 py-4 px-4' />
+                      <img src={item.images[0]} alt="" className='h-40 py-4 px-4' />
                     </Link>
                   </div>
                   <div className='px-2 py-4'>
@@ -97,7 +97,7 @@ const ShopTopCategory = () => {
                 <div className='bg-white rounded-[5px] mb-2 shadow'>
                   <div className='bg-gray-200 rounded-t-[5px] flex justify-center'>
                     <Link to={`/products/${item.id}`}>
-                      <img src={item.image} alt="" className='h-40 py-4 px-4' />
+                      <img src={item.images[1]} alt="" className='h-40 py-4 px-4' />
                     </Link>
                   </div>
                   <div className='px-2 py-4'>
@@ -119,7 +119,7 @@ const ShopTopCategory = () => {
                 <div className='bg-white rounded-[5px] mb-2 shadow'>
                   <div className='bg-gray-200 rounded-t-[5px] flex justify-center'>
                     <Link to={`/products/${item.id}`}>
-                      <img src={item.image} alt="" className='h-40 py-4 px-4' />
+                      <img src={item.images[1]} alt="" className='h-40 py-4 px-4' />
                     </Link>
                   </div>
                   <div className='px-2 py-4'>

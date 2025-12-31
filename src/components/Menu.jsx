@@ -14,12 +14,12 @@ const Menu = () => {
   let [categoryShow, setCategoryShow] = useState([])
 
   useEffect(()=>{
-    setCategoryShow([...new Set(data.map((item)=>item.category))])
+    setCategoryShow([...new Set(data.map((item)=>item.category.name))])
   },[data])
 
   let navigate = useNavigate()
   let handleCate = (citem)=>{
-    let cateFill = data.filter((item)=>item.category === citem)
+    let cateFill = data.filter((item)=>item.category.name === citem)
     navigate('/products', { state: { cateData: cateFill, category: citem } })
   }
 
@@ -170,7 +170,7 @@ const Menu = () => {
               {categoryShow.map((item, index) => (
                 <li key={index} onClick={
                   () =>{
-                    handleCate(item)
+                    handleCate(item.name)
                     setLeftMenu(false)
                   }
                 } className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>

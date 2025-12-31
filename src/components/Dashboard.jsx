@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../authContext/AuthContext";
+// import { useAuth } from "../authContext/AuthContext";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);

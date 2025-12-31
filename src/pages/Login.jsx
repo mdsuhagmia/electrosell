@@ -1,72 +1,72 @@
 import React, { useState } from 'react'
 import Container from '../components/Container'
 import { FaEye, FaEyeSlash, FaFacebookF, FaPhoneAlt } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import Swal from 'sweetalert2'
-import { useAuth } from '../authContext/AuthContext'
-import toast from 'react-hot-toast'
+// import { useAuth } from '../authContext/AuthContext'
+// import toast from 'react-hot-toast'
 
 const Login = () => {
 
   let [showPass, setShowPass] = useState(false);
 
   const {register, handleSubmit, formState: { errors },} = useForm()
-  const {loginWithEmail, googleLogin} = useAuth()
-  const navigate = useNavigate()
+  // const {loginWithEmail, googleLogin} = useAuth()
+  // const navigate = useNavigate()
 
-  const onSubmit = async (data) => {
-    try {
-      await loginWithEmail(data.email, data.password);
-      Swal.fire({
-        title: "Login Successful Done!",
-        icon: "success",
-        draggable: true
-      });
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(error.code);
+  // const onSubmit = async (data) => {
+  //   try {
+  //     await loginWithEmail(data.email, data.password);
+  //     Swal.fire({
+  //       title: "Login Successful Done!",
+  //       icon: "success",
+  //       draggable: true
+  //     });
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     console.log(error.code);
 
-  if (error.code === "auth/user-not-found") {
-    Swal.fire({
-      title: "Oops!",
-      text: "User not found. Please register first.",
-      icon: "warning",
-      confirmButtonText: "OK"
-    });
-  }
-  else if (error.code === "auth/invalid-credential") {
-    Swal.fire({
-      title: "Oops!",
-      text: "Incorrect email or password!",
-      icon: "error"
-    });
-  }
-  else {
-    Swal.fire({
-      title: "Error!",
-      text: "Account not found. Please register first.",
-      icon: "error"
-    });
-  }
-    }
-  }
+  // if (error.code === "auth/user-not-found") {
+  //   Swal.fire({
+  //     title: "Oops!",
+  //     text: "User not found. Please register first.",
+  //     icon: "warning",
+  //     confirmButtonText: "OK"
+  //   });
+  // }
+  // else if (error.code === "auth/invalid-credential") {
+  //   Swal.fire({
+  //     title: "Oops!",
+  //     text: "Incorrect email or password!",
+  //     icon: "error"
+  //   });
+  // }
+  // else {
+  //   Swal.fire({
+  //     title: "Error!",
+  //     text: "Account not found. Please register first.",
+  //     icon: "error"
+  //   });
+  // }
+  //   }
+  // }
 
-  let handleGoogleLogin = async ()=>{
-    try {
-      await googleLogin();
-      navigate("/dashboard")
-    } catch (error) {
-      toast.error(error.message)
-    }
-  }
+  // let handleGoogleLogin = async ()=>{
+  //   try {
+  //     await googleLogin();
+  //     navigate("/dashboard")
+  //   } catch (error) {
+  //     toast.error(error.message)
+  //   }
+  // }
 
   return (
     <section className='py-6 md:py-8 lg:py-10'>
       <Container>
         <div className='max-w-full md:max-w-xl mx-auto bg-violet-950 rounded-2xl shadow-2xl'>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit()}>
             <div className='px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-8'>
               <h2 className='text-white font-extrabold text-[25px] sm:text-[30px] pb-4 text-center font-jose'>
                 Log In to Your Account
@@ -131,7 +131,7 @@ const Login = () => {
               <div>
                 <p className="text-[14px] sm:text-[16px] font-bold font-jose text-white pt-6 text-center">Sign in with</p>
                 <div className="flex justify-center gap-x-4 items-center pt-4">
-                  <div onClick={handleGoogleLogin} className="flex items-center justify-center gap-2 px-6 py-2 bg-white rounded-md shadow hover:bg-gray-300 cursor-pointer transition-all">
+                  <div className="flex items-center justify-center gap-2 px-6 py-2 bg-white rounded-md shadow hover:bg-gray-300 cursor-pointer transition-all">
                     <FcGoogle className="text-blue-500 text-lg" />
                     <span className="text-gray-700 font-medium">Google</span>
                   </div>

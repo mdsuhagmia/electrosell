@@ -6,8 +6,8 @@ const ContextApi = ({children}) => {
 
   let [info, setInfo] = useState([])
   let getData = ()=>{
-    axios.get("https://fakestoreapi.com/products").then((response)=>{
-      setInfo(response.data)
+    axios.get("https://es-back-xv9z.onrender.com/api/products").then((response)=>{
+      setInfo(response.data.payload.Products)
     })
   }
   useEffect(()=>{

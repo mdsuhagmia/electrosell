@@ -9,7 +9,7 @@ const BanDown = () => {
   let [cateShow, setCateShow] = useState([])
   
   useEffect(()=>{
-    let cateFilter = data.filter((item)=>item.category === "men's clothing")
+    let cateFilter = data.filter((item)=>item.category.name === "Health & Beauty")
     setCateShow(cateFilter)
   },[data])
 
@@ -23,7 +23,7 @@ const BanDown = () => {
               {cateShow.map((item) => (
                 <div key={item.id} className="bg-blue-500 rounded-[8px] shadow ">
                   <Link to={`/products/${item.id}`}>
-                    <img src={item.image} alt={item.title}
+                    <img src={item.images[0]} alt={item.title}
                     className="w-full h-52 object-contain px-6 py-4 bg-gra-100 bg-gray-200 rounded-t-[5px]" />
                   </Link>
                   <div className="p-4 rounded-b-lg text-white">

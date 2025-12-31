@@ -81,7 +81,7 @@ const Products = () => {
   let [shopCategory, setShopCategory] = useState([])
 
   useEffect(()=>{
-    setShopCategory([...new Set(data.map((item)=>item.category))])
+    setShopCategory([...new Set(data.map((item)=>item.category.name))])
   },[data])
   
   let [cateFilShow, setCateFilShow] = useState([])
@@ -92,7 +92,7 @@ const Products = () => {
       setSelectedCategory('')
       setCateFilShow([])
     }else{
-      let cateShow = data.filter((item)=>item.category === citem)
+      let cateShow = data.filter((item)=>item.category.name === citem)
       setCateFilShow(cateShow)
       setSelectedCategory(citem)
     }
