@@ -10,7 +10,7 @@ const WomensClothing = () => {
   let [cateShow, setCateShow] = useState([])
 
   useEffect(()=>{
-    let cateFilter = data.filter((item)=>item.category.name === "Home Decor")
+    let cateFilter = data.filter((item)=>item.category?.name === "Home Decor")
     setCateShow(cateFilter)
   },[data])
 

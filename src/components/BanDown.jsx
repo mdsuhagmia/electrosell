@@ -9,7 +9,7 @@ const BanDown = () => {
   let [cateShow, setCateShow] = useState([])
   
   useEffect(()=>{
-    let cateFilter = data.filter((item)=>item.category.name === "Health & Beauty")
+    let cateFilter = data.filter((item)=>item.category?.name === "Health & Beauty")
     setCateShow(cateFilter)
   },[data])
 

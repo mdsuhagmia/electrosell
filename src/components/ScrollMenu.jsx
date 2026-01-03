@@ -17,7 +17,7 @@ const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter,
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category.name))])
+    setCategories([...new Set(data.map((item) => item.category?.name))])
   }, [data])
 
   return (

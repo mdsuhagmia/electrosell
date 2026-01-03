@@ -1,72 +1,18 @@
 import React, { useState } from 'react'
 import Container from '../components/Container'
-import { FaEye, FaEyeSlash, FaFacebookF, FaPhoneAlt } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaPhoneAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
-import Swal from 'sweetalert2'
-// import { useAuth } from '../authContext/AuthContext'
-// import toast from 'react-hot-toast'
 
 const Login = () => {
 
   let [showPass, setShowPass] = useState(false);
 
-  const {register, handleSubmit, formState: { errors },} = useForm()
-  // const {loginWithEmail, googleLogin} = useAuth()
-  // const navigate = useNavigate()
-
-  // const onSubmit = async (data) => {
-  //   try {
-  //     await loginWithEmail(data.email, data.password);
-  //     Swal.fire({
-  //       title: "Login Successful Done!",
-  //       icon: "success",
-  //       draggable: true
-  //     });
-  //     navigate("/dashboard");
-  //   } catch (error) {
-  //     console.log(error.code);
-
-  // if (error.code === "auth/user-not-found") {
-  //   Swal.fire({
-  //     title: "Oops!",
-  //     text: "User not found. Please register first.",
-  //     icon: "warning",
-  //     confirmButtonText: "OK"
-  //   });
-  // }
-  // else if (error.code === "auth/invalid-credential") {
-  //   Swal.fire({
-  //     title: "Oops!",
-  //     text: "Incorrect email or password!",
-  //     icon: "error"
-  //   });
-  // }
-  // else {
-  //   Swal.fire({
-  //     title: "Error!",
-  //     text: "Account not found. Please register first.",
-  //     icon: "error"
-  //   });
-  // }
-  //   }
-  // }
-
-  // let handleGoogleLogin = async ()=>{
-  //   try {
-  //     await googleLogin();
-  //     navigate("/dashboard")
-  //   } catch (error) {
-  //     toast.error(error.message)
-  //   }
-  // }
-
   return (
     <section className='py-6 md:py-8 lg:py-10'>
       <Container>
         <div className='max-w-full md:max-w-xl mx-auto bg-violet-950 rounded-2xl shadow-2xl'>
-          <form onSubmit={handleSubmit()}>
+          <form>
             <div className='px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-8'>
               <h2 className='text-white font-extrabold text-[25px] sm:text-[30px] pb-4 text-center font-jose'>
                 Log In to Your Account
@@ -76,20 +22,12 @@ const Login = () => {
                   Your Email
                 </label>
                 <input
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-                      message: "Invalid email address",
-                    }
-                  })}
                   type="email"
                   required
                   autoComplete='email'
                   placeholder='Enter Your Email'
                   className='py-3 px-4 w-full bg-white rounded-[5px] text-[14px] sm:text-[16px] font-bold outline-none border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 mt-2 mb-4 placeholder:text-[14px]'
                 />
-                {errors.email && <p className="text-sm italic font-jose font-medium text-red-500 pb-1">{errors.email.message}</p>}
               </div>
               <div>
                 <label className='text-white text-[15px] sm:text-[16px] font-bold'>
@@ -98,13 +36,6 @@ const Login = () => {
                 <div>
                   <div className='relative'>
                     <input
-                      {...register("password", {
-                        required: "Password is required",
-                        minLength: {
-                          value: 6,
-                          message: "Password must be least 6 character long",
-                        }
-                      })}
                       type={showPass ? "text" : "password"}
                       required
                       placeholder='Enter Your Password'
@@ -117,7 +48,6 @@ const Login = () => {
                       {showPass ? <FaEyeSlash /> : <FaEye />}
                     </span>
                   </div>
-                  {errors.password && <p className="text-sm italic font-jose font-medium text-red-500">{errors.password.message}</p>}
                 </div>
               </div>
               <div className='flex justify-end'>

@@ -5,12 +5,9 @@ import { FiHeart } from 'react-icons/fi'
 import { CiMenuFries, CiUser } from 'react-icons/ci'
 import { GrClose } from 'react-icons/gr'
 import logofull from '../assets/logofull.png'
-// import { useAuth } from '../authContext/AuthContext'
 import { MdDashboard } from 'react-icons/md'
 
 const Header = () => {
-
-  // let {user} = useAuth()
 
   let menuRef = useRef()
   let [openMenu, setOpenMenu] = useState(false)
@@ -75,18 +72,18 @@ const Header = () => {
                 <p className='text-[14px] font-semibold font-jose group-hover:text-violet-600'>Wishlist</p>
               </NavLink>
             </div>
-            <div>
+            {/* <div>
               <NavLink to={"/dashboard"} className={({ isActive }) => `text-[14px] font-jose font-semibold hover:text-violet-600 flex items-center gap-x-2 group border-l border-l-[#00000045] ${isActive ? "text-red-500" : "text-violet-950"}`}>
                 <MdDashboard className='text-[18px] group-hover:text-violet-600 ml-2' />
                 <p className='text-[14px] font-semibold font-jose group-hover:text-violet-600'>Dashboard</p>
               </NavLink>
-            </div>
-            {/* <div>
+            </div> */}
+            <div>
               <NavLink to={"/login"} className={({ isActive }) => `text-[14px] font-jose font-semibold hover:text-violet-600 flex items-center gap-x-2 group border-l border-l-[#00000045] ${isActive ? "text-red-500" : "text-violet-950"}`}>
                 <CiUser className='text-[18px] group-hover:text-violet-600 ml-2' />
                 <p className='text-[14px] font-semibold font-jose group-hover:text-violet-600'>Login / SignUp</p>
               </NavLink>
-            </div> */}
+            </div>
           </div>
           <div className='md:hidden' onClick={()=>setOpenMenu((prev)=>!prev)}>
             {openMenu == true ? <GrClose className='text-2xl cursor-pointer opacity-0' /> : <CiMenuFries className='text-2xl cursor-pointer' />}

@@ -17,12 +17,12 @@ const MobileMenu = () => {
     let [categoryShow, setCategoryShow] = useState([])
   
     useEffect(()=>{
-      setCategoryShow([...new Set(data.map((item)=>item.category.name))])
+      setCategoryShow([...new Set(data.map((item)=>item.category?.name))])
     },[data])
   
     let navigate = useNavigate()
     let handleCate = (citem)=>{
-      let cateFill = data.filter((item)=>item.category.name === citem)
+      let cateFill = data.filter((item)=>item.category?.name === citem)
       navigate('/products', { state: { cateData: cateFill, category: citem } })
       setLeftMenu(false)
     }
@@ -135,7 +135,7 @@ const MobileMenu = () => {
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category.name))])
+    setCategories([...new Set(data.map((item) => item.category?.name))])
   }, [data])
 
   return (

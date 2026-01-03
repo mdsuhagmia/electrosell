@@ -15,20 +15,20 @@ const ShopTopCategory = () => {
 
   useEffect(()=>{
 
-    setSh([...new Set(data.map((item)=>item.category.name))])
+    setSh([...new Set(data.map((item)=>item.category?.name))])
     
-    let cateSingle = data.filter((item)=>item.category.name === "Home Decor")
+    let cateSingle = data.filter((item)=>item.category?.name === "Home & Decor")
     setShopCategory(cateSingle)
 
-    let cateSingle1 = data.filter((item)=>item.category.name === "Health & Beauty")
+    let cateSingle1 = data.filter((item)=>item.category?.name === "Health & Beauty")
     let exclude1 = [1, 2]
     let cateFil1 = cateSingle1.filter((_,index)=>!exclude1.includes(index))
     setShopCategory1(cateFil1)
 
-    let cateSingle2 = data.filter((item)=>item.category.name === "Home Decor")
+    let cateSingle2 = data.filter((item)=>item.category?.name === "Home & Decor")
     setShopCategory2(cateSingle2)
 
-    let cateSingle3 = data.filter((item)=>item.category.name === "Health & Beauty")
+    let cateSingle3 = data.filter((item)=>item.category?.name === "Health & Beauty")
     let excluse = [1, 4, 6,]
     let caeFil = cateSingle3.filter((_, index)=> !excluse.includes(index))
     setShopCategory3(caeFil)

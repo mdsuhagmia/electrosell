@@ -17,13 +17,13 @@ const Categories = () => {
   let [category, setCategory] = useState([]);
 
   useEffect(() => {
-    setCategory([...new Set(data.map((item) => item.category.name))]);
+    setCategory([...new Set(data.map((item) => item.category?.name))]);
   }, [data]);
 
   let navigate = useNavigate();
 
   let handleCate = (citem) => {
-    let cateFill = data.filter((item) => item.category.name === citem);
+    let cateFill = data.filter((item) => item.category?.name === citem);
     navigate('/products', { state: { cateData: cateFill, category: citem } });
   };
 
@@ -37,7 +37,7 @@ const Categories = () => {
               onClick={() => handleCate(item)}
               className='capitalize flex flex-col items-center justify-center space-y-2 text-violet-950 font-bold font-jose text-2xl hover:bg-gray-100 cursor-pointer hover:text-violet-700 transition-all duration-500 ease-in-out bg-white py-8 rounded-[5px] mb-4'
             >
-              {React.createElement(categoryIcons[item.toLowerCase()] || MdHealthAndSafety, {
+              {React.createElement(categoryIcons[item?.toLowerCase()] || MdHealthAndSafety, {
                 size: 36,
                 className: "text-violet-700"
               })}
