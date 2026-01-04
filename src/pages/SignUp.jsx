@@ -148,7 +148,7 @@ const Register = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-500 transition"
+          className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded hover:bg-blue-500 transition"
         >
           {loading ? "Processing..." : "Sign Up"}
         </button>
