@@ -24,34 +24,6 @@ const Register = () => {
     });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setMessage("");
-
-  //   try {
-  //     const data = new FormData();
-  //     Object.keys(formData).forEach((key) => {
-  //       if (formData[key] !== null) {
-  //         data.append(key, formData[key]);
-  //       }
-  //     });
-
-  //     // Axios call
-  //     const res = await api.post("/user/process-register", data, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //       withCredentials: true, // cookies support if needed
-  //     });
-
-  //     setMessage(res.data.message || "Registration successful! Check your email for verification.");
-  //   } catch (err) {
-  //     console.error("Signup error:", err.response || err);
-  //     setMessage(err.response?.data?.message || "Registration failed. Try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
@@ -69,7 +41,7 @@ const Register = () => {
       withCredentials: true
     });
 
-    setMessage(res.data.message); // show backend message
+    setMessage(res.data.message);
   } catch (err) {
     console.error(err);
     setMessage(err.response?.data?.message || "Registration failed");
