@@ -1,43 +1,48 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
 import api from "../api/axios";
+import { toast } from "react-toastify";
 
 const ActivatePage = () => {
-  const { token } = useParams(); // /activate/:token route থেকে token নেবে
+  const { token } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!token) return;
+  const handleActivate = async () => {
+    setLoading(true);
+    try {
+      await api.post("/user/activate", { token });
 
-    const activateAccount = async () => {
-      try {
-        const res = await api.post("/user/activate", { token });
-        toast.success(res.data.message);
-        setLoading(false);
-        setTimeout(() => {
-          navigate("/login"); // success হলে login page এ নিয়ে যাবে
-        }, 3000);
-      } catch (err) {
-        toast.error(err.response?.data?.message || "Activation failed");
-        setLoading(false);
-      }
-    };
-
-    activateAccount();
-  }, [token, navigate]);
+      toast.success("Account activated successfully! Please login.");
+      navigate("/login");
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Activation failed or token expired."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="flex justify-center items-center py-12 bg-gray-100">
-      <div className="bg-white p-6 rounded shadow-md text-center">
-        {loading ? (
-          <h2 className="text-xl font-bold">Activating your account...</h2>
-        ) : (
-          <h2 className="text-xl font-bold">
-            {token ? "Activation complete! Redirecting..." : "Invalid token"}
-          </h2>
-        )}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Activate Your Account
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Click the button below to complete your registration and activate your
+          account.
+        </p>
+        <button
+          onClick={handleActivate}
+          disabled={loading}
+          className={`w-full py-3 px-4 rounded-md text-white font-medium transition duration-200 ${
+            loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          {loading ? "Activating..." : "Activate Account"}
+        </button>
       </div>
     </div>
   );

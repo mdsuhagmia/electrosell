@@ -7,17 +7,17 @@ const LogOut = () => {
   try {
     await axios.post("https://es-back-xv9z.onrender.com/api/auth/logout", {}, { withCredentials: true });
     
-    window.location.href = "/login";
+    window.location.href = "/";
   } catch (error) {
     console.error("Logout failed", error);
   }
 };
 
-  return <div onClick={handleLogout} className="flex items-center gap-x-2 hover:bg-red-400 w-full py-2 group rounded">
+  return <div onClick={handleLogout} className="flex items-center gap-x-2 pb-2 group rounded">
     <div>
-      <LuLogOut className="group-hover:text-white text-black ml-4" />
+      <LuLogOut className="group-hover:text-blue-500 text-black" />
     </div>
-    <button className=" group-hover:text-white text-black rounded cursor-pointer">Logout</button>
+    <button className="text-black group-hover:text-blue-500 rounded cursor-pointer">Logout</button>
   </div>;
 };
 

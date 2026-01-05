@@ -9,9 +9,17 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const res = await api.get("/auth/me");
-      setUser(res.data.payload.user);
+      // ব্যাকএন্ড কল: /api/auth/user/me
+      const res = await api.get("/auth/user/me");
+      
+      // আপনার ব্যাকএন্ড সরাসরি { user: ... } পাঠাচ্ছে
+      if (res.data && res.data.user) {
+        setUser(res.data.user);
+      } else {
+        setUser(null);
+      }
     } catch (err) {
+      console.error("Auth Check Error:", err.response?.data?.message || err.message);
       setUser(null);
     } finally {
       setLoading(false);
@@ -23,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading }}>
+    <AuthContext.Provider value={{ user, setUser, loading, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

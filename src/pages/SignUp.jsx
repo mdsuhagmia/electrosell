@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
@@ -32,7 +33,7 @@ const Register = () => {
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       if (formData[key] !== null) {
-        data.append(key, formData[key]); // must match backend field names
+        data.append(key, formData[key]);
       }
     });
 
@@ -41,10 +42,25 @@ const Register = () => {
       withCredentials: true
     });
 
-    setMessage(res.data.message);
+    Swal.fire({
+        title: 'Success!',
+        text: res.data.message || 'Registration successful! Please check your email.',
+        icon: 'success',
+        confirmButtonColor: '#2563eb',
+        confirmButtonText: 'Great!'
+      });
+      setFormData({
+        name: "", email: "", password: "", phone: "", address: "", image: null
+      });
+      e.target.reset();
   } catch (err) {
-    console.error(err);
     setMessage(err.response?.data?.message || "Registration failed");
+    Swal.fire({
+      title: "Error!",
+      text: err.response?.data?.message || "Registration failed",
+      icon: "error",
+      confirmButtonColor: "#d33",
+    });
   } finally {
     setLoading(false);
   }

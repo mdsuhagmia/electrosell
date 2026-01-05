@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaCartPlus, FaRegHeart } from 'react-icons/fa'
 import { useSelector } from 'react-redux'

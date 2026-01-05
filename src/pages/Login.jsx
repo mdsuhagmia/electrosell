@@ -1,14 +1,15 @@
 import { useState } from "react";
 import api from "../api/axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  let [showPass, setShowPass] = useState(false);
-  const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+  const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -17,60 +18,85 @@ const Login = () => {
 
     try {
       const res = await api.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.payload.accessToken);
-      navigate("/dashboard");
+
+      console.log("Login Payload:", res.data.payload);
+
+      const userData = res.data.payload?.userWithoutPassword;
+
+      if (userData) {
+        setUser(userData);
+
+        Swal.fire({
+          icon: "success",
+          title: `স্বাগতম, ${userData.name}!`,
+          text: "লগইন সফল হয়েছে।",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 1500);
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      console.error("Login Error:", err);
+      Swal.fire({
+        icon: "error",
+        title: "লগইন ব্যর্থ",
+        text: err.response?.data?.message || "ইমেইল বা পাসওয়ার্ড ভুল।",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className=" py-8 flex items-center justify-center bg-gray-100">
+    <div className="py-8 flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded w-full max-w-md space-y-4"
+        className="bg-white p-6 rounded w-full max-w-md space-y-4 shadow-md"
       >
         <h2 className="text-2xl font-bold text-center">Login</h2>
-
-        {error && <p className="text-center text-red-500">{error}</p>}
 
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="input"
+          className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+          required
         />
 
         <div className="relative">
           <input
             type={showPass ? "text" : "password"}
             placeholder="Password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="input"
+            className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            required
           />
           <span
             onClick={() => setShowPass(!showPass)}
-            className="absolute right-[5%] top-[50%] -translate-y-[50%] text-gray-600 cursor-pointer text-xl"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 cursor-pointer text-xl"
           >
-            {" "}
             {showPass ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
 
-        <button className="w-full bg-green-600 hover:bg-green-700 cursor-pointer text-white py-2 rounded">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition font-bold disabled:bg-gray-400"
+        >
           {loading ? "Logging in..." : "Login"}
         </button>
-        <p className="text-[16px] font-medium text-pink-400 pt-2">
+
+        <p className="text-center pt-2">
           Don't have an account?{" "}
-          <Link
-            to={"/signup"}
-            className="hover:underline text-emerald-400 text-[16px]"
-          >
-            {" "}
+          <Link to="/signup" className="text-blue-500 hover:underline">
             Sign Up
-          </Link>{" "}
+          </Link>
         </p>
       </form>
     </div>

@@ -93,6 +93,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import ActivatePage from "./pages/ActivatePage";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import DashboardHome from "./components/dashboard/DashboardHome";
 
 const routing = createBrowserRouter(
   createRoutesFromElements(
@@ -106,8 +108,7 @@ const routing = createBrowserRouter(
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/activate/:token" element={<ActivatePage />} />
-        <Route path="/dashboard/profile" element={<Profile />} />
+        <Route path="/api/user/activate/:token" element={<ActivatePage />} />
         <Route path="/forgotpass" element={<ForgotPass />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/shippingdelivery" element={<ShippingDelivery />} />
@@ -166,7 +167,11 @@ const routing = createBrowserRouter(
               <Dashboard />
             </PrivateRoute>
           }
-        />
+        >
+          <Route index element={<DashboardHome/>}></Route>
+          <Route path="/dashboard/profile" element={<Profile/>}></Route>
+          <Route path="/dashboard/settings" element={<Settings/>}></Route>
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFound />} />
