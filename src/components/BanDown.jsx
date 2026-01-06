@@ -14,7 +14,7 @@ const BanDown = () => {
   },[data])
 
   return (
-    <section className='md:pt-50'>
+    <section className=''>
       <Container>
         <div>
           <div className="py-6 sm:py-12">

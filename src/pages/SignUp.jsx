@@ -37,9 +37,18 @@ const Register = () => {
       }
     });
 
+    // const res = await api.post("/user/process-register", data, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    //   withCredentials: true
+    // });
+
     const res = await api.post("/user/process-register", data, {
-      headers: { "Content-Type": "multipart/form-data" },
-      withCredentials: true
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+      },
+      withCredentials: true,
     });
 
     Swal.fire({

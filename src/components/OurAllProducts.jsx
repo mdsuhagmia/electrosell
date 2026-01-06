@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 const OurAllProducts = () => {
 
   let data = useContext(apiData)
+  console.log(data)
 
   function SampleNextArrow(props) {
     const { onClick } = props;

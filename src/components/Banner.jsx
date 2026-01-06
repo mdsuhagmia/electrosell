@@ -1,10 +1,20 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
-import BanSlick from './BanSlick';
-import BanSlick1 from './BanSlick1';
-import BanSlick2 from './BanSlick2';
 
 const Banner = () => {
+
+  let [data, setData] = useState([])
+  const getData = ()=>{
+    axios.get("https://es-back-xv9z.onrender.com/api/banner").then((res)=>{
+      setData(res.data.payload.banner)
+    })
+  }
+
+  useEffect(()=>{
+    getData()
+  })
+
   var settings = {
     dots: true,
     infinite: true,
@@ -18,16 +28,16 @@ const Banner = () => {
 
 
   return (
-    <section className='hidden md:block max-w-7xl mx-auto'>
-      <div className='h-[120px] lg:h-[200px]'>
-        <Slider {...settings} className='banSlick'>
-          <BanSlick />
-          <BanSlick1 />
-          <BanSlick2 />
+    <section className="">
+      <div className="">
+        <Slider {...settings} className="banSlick">
+          {data.map((item)=>(
+            <img src={item.image} className='h-96' alt="" />
+          ))}
         </Slider>
       </div>
     </section>
-  )
+  );
 }
 
 export default Banner
