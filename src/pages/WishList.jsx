@@ -3,63 +3,26 @@ import Container from '../components/Container'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaCartPlus, FaHeart } from 'react-icons/fa'
 import { RiCloseLargeFill, RiDeleteBin6Line } from 'react-icons/ri'
-import { addToCart, addToWishlist, removeAllWishlist, removeWishlist } from '../components/slice/productSlice'
 import { BsFillCartXFill } from 'react-icons/bs'
-import { Link, useNavigate } from 'react-router-dom'
-import { apiData } from '../components/ContextApi'
+import { Link } from 'react-router-dom'
+import { ApiData } from '../components/ContextApi'
 import { CiZoomIn } from 'react-icons/ci'
 import Swal from 'sweetalert2'
 import toast from 'react-hot-toast'
+import { useAuth } from '../context/AuthContext'
+import { addToCart, addToWishlist, allDeleteWishlist, fetchWishlist, moveToCart, wishlistDelete } from '../components/slice/productSlice'
 
 const WishList = () => {
 
-  let wishData = useSelector((state)=>state.product.wishlistItem)
+  const wishItems = useSelector((state) => state.product.wishItems);
   let dispatch = useDispatch()
+  const { user } = useAuth();
 
-  let handleAllDelete = (item)=>{
-    Swal.fire({
-      title: "Are you sure?",
-      text: "This action cannot be undone. All items will be permanently removed.!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(removeAllWishlist(item))
-        Swal.fire({
-          title: "Deleted successfully!",
-          text: " All item successfully removed from your Wishlist.",
-          icon: "success"
-        });
-      }
-    });
-  }
-
-  let handleMoveCart = (item)=>{
-    dispatch(removeWishlist(item))
-    dispatch(addToCart({...item, qun: 1}))
-    toast.success("Move to Cart Successfully");
-  }
-
-  let data = useContext(apiData)
-  let [suggested, setSuggested] = useState([])
-  useEffect(()=>{
-    let randomProduct = [...data].sort(()=> 0.5 - Math.random())
-    let selected = randomProduct.slice(0, 8)
-    setSuggested(selected)
-  },[data])
-
-  let handleCartItem = (item)=>{
-    dispatch(addToCart({...item, qun: 1}))
-    toast.success("Add to Cart Successfully");
-  }
-
-  let handleWish = (item)=>{
-    dispatch(addToWishlist(item))
-    toast.success("Add to Wishlist Successfully");
-  }
+  useEffect(() => {
+    if (user && user._id) {
+      dispatch(fetchWishlist(user._id));
+    }
+  }, [dispatch, user]);
 
   let handleDeleteWish = (item)=>{
     Swal.fire({
@@ -72,7 +35,7 @@ const WishList = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(removeWishlist(item))
+        dispatch(wishlistDelete(item._id))
         Swal.fire({
           title: "Deleted successfully!",
           text: "Item successfully removed from your Wishlist..",
@@ -80,6 +43,60 @@ const WishList = () => {
         });
       }
     });
+  }
+
+  let handleAllDelete = (item)=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone. All items will be permanently removed.!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(allDeleteWishlist(item.userId))
+        Swal.fire({
+          title: "Deleted successfully!",
+          text: " All item successfully removed from your Wishlist.",
+          icon: "success"
+        });
+      }
+    });
+  }
+
+  let handleMoveCart = (item)=>{
+    dispatch(moveToCart(item._id))
+    toast.success("Move to Cart Successfully");
+  }
+
+  let {products} = useContext(ApiData)
+  let [suggested, setSuggested] = useState([])
+  useEffect(()=>{
+    let randomProduct = [...products].sort(()=> 0.5 - Math.random())
+    let selected = randomProduct.slice(0, 8)
+    setSuggested(selected)
+  },[products])
+
+  let handleCartItem = (item)=>{
+    dispatch(addToCart(item._id))
+    toast.success("Add to Cart Successfully");
+  }
+
+  let handleWish = (item)=>{
+    if (user && user._id) {
+      const wishData = {
+        userId: user._id,
+        productId: item._id
+      };
+      dispatch(addToWishlist(wishData))
+        .unwrap()
+        .then(() => toast.success("Add to Wishlist Successfully"))
+        .catch((err) => toast.error("Failed to add: " + err.message));
+    } else {
+      toast.error("Please login first!");
+    }
   }
 
   let [zoomIn, setZoomIn] = useState(false)
@@ -102,13 +119,13 @@ const WishList = () => {
     <section className='pb-16'>
       <Container>
         <div className='relative'>
-          {wishData.length > 0 && (
+          {wishItems.length > 0 && (
             <div className='py-8 sm:py-16 flex items-center justify-start lg:justify-center gap-x-2'>
               <FaHeart className='text-xl sm:text-4xl text-violet-950' />
-              <h2 className='text-center text-[20px] sm:text-3xl font-jose font-extrabold text-violet-950'>Your Wishlist ({wishData.length})</h2>
+              <h2 className='text-center text-[20px] sm:text-3xl font-jose font-extrabold text-violet-950'>Your Wishlist ({wishItems.length})</h2>
             </div>
           )}
-          {wishData.length > 0 ? (
+          {wishItems.length > 0 ? (
             <div>
               <div className="overflow-x-auto rounded-lg shadow-md hidden md:block">
                 <table className="min-w-full bg-white border border-gray-200">
@@ -121,19 +138,19 @@ const WishList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {wishData.map((item, index) => (
+                    {wishItems.map((item, index) => (
                       <tr  key={item.id || index} className="border-t-2 border-[#0000001d] hover:bg-gray-50 transition">
                         <td className="px-6 py-4 flex items-center gap-4">
-                          <img src={item.images?.[0]} alt={item.title} className="h-20 w-20 object-contain" />
+                          <img src={item?.productId?.images?.[0]} alt={item.title} className="h-20 w-20 object-contain" />
                           <tr>
-                            <h2 className="font-semibold font-jose text-indigo-950 max-w-lg">{item.title}</h2>
-                            <h3 className="font-medium font-lat text-gray-600">{item.category?.name}</h3>
+                            <h2 className="font-semibold font-jose text-indigo-950 max-w-lg">{item?.productId?.title}</h2>
+                            <h3 className="font-medium font-lat text-gray-600">{item.category?.productId?.name}</h3>
                           </tr>
                         </td>
-                        <td className="px-6 py-4 text-gray-700 font-semibold">${item.price}</td>
+                        <td className="px-6 py-4 text-gray-700 font-semibold">${item?.productId?.price}</td>
                         <td className="px-6 py-4">
                           <button
-                            onClick={() =>handleDeleteWish(index)}
+                            onClick={() =>handleDeleteWish(item)}
                             className="text-red-500 hover:text-red-800 font-semibold cursor-pointer text-xl">
                             <RiDeleteBin6Line />
                           </button>
@@ -154,7 +171,7 @@ const WishList = () => {
               <div className="overflow-x-auto rounded-lg shadow-md md:hidden">
                 <table className="min-w-full bg-white border-t-3 border-blue-500">
                   <tbody>
-                    {wishData.map((item, index) => (
+                    {wishItems.map((item, index) => (
                       <tr  key={item.id || index} className="border-t-2 border-[#0000001d] hover:bg-gray-50 transition">
                         <td className="px-2 py-4 flex items-center gap-4">
                           <img src={item.image?.[0]} alt={item.title} className="h-20 w-20 object-contain" />
@@ -167,7 +184,7 @@ const WishList = () => {
                           <div className="text-gray-700 font-semibold">${item.price}</div>
                           <div className="">
                             <button
-                              onClick={() => dispatch(removeWishlist(index))}
+                              // onClick={() => dispatch(removeWishlist(index))}
                               className="text-red-500 hover:text-red-800 font-semibold cursor-pointer text-xl">
                               <RiDeleteBin6Line />
                             </button>

@@ -6,7 +6,7 @@ const LogOut = () => {
  const handleLogout = async () => {
    try {
      await axios.post(
-       "https://es-back-xv9z.onrender.com/api/auth/logout",
+       "http://localhost:3000/api/auth/logout",
        {},
        { withCredentials: true }
      );
@@ -17,11 +17,11 @@ const LogOut = () => {
    }
  };
 
-  return <div onClick={handleLogout} className="flex items-center gap-x-2 pb-2 group rounded">
+  return <div onClick={handleLogout} className="flex cursor-pointer mb-4 items-center gap-x-2 py-2 group rounded hover:text-blue-600 hover:bg-gray-100 pl-4">
     <div>
-      <LuLogOut className="group-hover:text-blue-500 text-black" />
+      <LuLogOut className="group-hover:text-blue-500 text-gray-600" />
     </div>
-    <button className="text-black group-hover:text-blue-500 rounded cursor-pointer">Logout</button>
+    <button className="text-gray-600 group-hover:text-blue-500 rounded cursor-pointer">Logout</button>
   </div>;
 };
 

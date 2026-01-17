@@ -1,11 +1,11 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Sidebar from "../components/dashboard/Sidebar";
+import Container from "../components/Container";
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
 
-  // ডাটা ফেচ হওয়া পর্যন্ত ওয়েট করবে
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -15,25 +15,26 @@ const Dashboard = () => {
     );
   }
 
-  // ইউজার না থাকলে লগইনে ফেরত পাঠাবে
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      {/* Sidebar Section */}
-      <div className="w-64 bg-white shadow-md min-h-screen hidden md:block">
+    <section>
+      <Container>
+        <div className="min-h-screen flex bg-gray-100">
+      <div className="w-1/4 bg-white shadow-md min-h-screen">
         <Sidebar />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-8 overflow-y-auto">
-        <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="flex-1 overflow-y-auto w-3/4">
+        <div className="p-8">
            <Outlet /> 
         </div>
       </div>
     </div>
+      </Container>
+    </section>
   );
 };
 

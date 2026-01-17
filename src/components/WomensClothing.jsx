@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Container from './Container'
-import { apiData } from './ContextApi'
+import { ApiData } from './ContextApi'
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
 const WomensClothing = () => {
-  let data = useContext(apiData)
+  let {products} = useContext(ApiData)
   let [cateShow, setCateShow] = useState([])
 
   useEffect(()=>{
-    let cateFilter = data.filter((item)=>item.category?.name === "Home Decor")
+    let cateFilter = products.filter((item)=>item.category?.name === "home & decor")
     setCateShow(cateFilter)
-  },[data])
+  },[products])
 
   function SampleNextArrow(props) {
     const { onClick } = props;
@@ -53,13 +53,13 @@ const WomensClothing = () => {
       <Container>
         <div>
           <h2 className="text-lg sm:text-3xl md:text-4xl text-indigo-950 text-center pb-6 font-bold font-jose">
-            Best Sellers in Home Decor
+            Best Sellers in Home And Decor
           </h2>
           <Slider {...settings} className='wo_clothing'>
             {cateShow.map((item) => (
               <div key={item.id} className='px-2'>
                 <div className="bg-white rounded-[8px] shadow-xl mb-6">
-                  <Link to={`/products/${item.id}`}>
+                  <Link to={`/products/${item.slug}`}>
                     <img 
                       src={item.images[0]} 
                       alt={item.title}
@@ -67,7 +67,7 @@ const WomensClothing = () => {
                     />
                   </Link>
                   <div className="p-4 min-h-28 md:min-h-30 rounded-b-lg text-gray-950">
-                    <Link to={`/products/${item.id}`}>
+                    <Link to={`/products/${item.slug}`}>
                       <h3 className="text-sm md:text-[17px] lg:text-lg font-semibold line-clamp-2 hover:underline">{item.title}</h3>
                     </Link>
                     <p className="mt-1 text-lg font-bold">${item.price}</p>

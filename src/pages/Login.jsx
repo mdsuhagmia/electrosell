@@ -19,8 +19,6 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login", { email, password });
 
-      console.log("Login Payload:", res.data.payload);
-
       const userData = res.data.payload?.userWithoutPassword;
 
       if (userData) {
@@ -39,7 +37,6 @@ const Login = () => {
         }, 1500);
       }
     } catch (err) {
-      console.error("Login Error:", err);
       Swal.fire({
         icon: "error",
         title: "লগইন ব্যর্থ",
@@ -84,10 +81,14 @@ const Login = () => {
           </span>
         </div>
 
+        <div className="flex justify-end">
+          <Link to={"/forgot-password"} className="text-red-500 font-medium font-jose hover:underline">Forgot password</Link>
+        </div>
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition font-bold disabled:bg-gray-400"
+          className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white py-2 rounded transition font-bold disabled:bg-gray-400"
         >
           {loading ? "Logging in..." : "Login"}
         </button>

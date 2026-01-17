@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
+import { toast } from "react-toastify";
 
 const ChangePassword = () => {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ const ChangePassword = () => {
       email: user.email,
       ...form,
     });
-    alert("Password updated successfully");
+    toast.success("Password updated successfully");
   };
 
   return (

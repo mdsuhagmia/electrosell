@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Container from '../components/Container';
-import { apiData } from '../components/ContextApi';
+import { ApiData } from '../components/ContextApi';
 import { useNavigate } from 'react-router-dom';
 import { FaLaptop, FaGem, FaFemale } from 'react-icons/fa';
 import { MdHealthAndSafety } from 'react-icons/md';
@@ -13,17 +13,17 @@ const categoryIcons = {
 };
 
 const Categories = () => {
-  let data = useContext(apiData);
+  let {products} = useContext(ApiData);
   let [category, setCategory] = useState([]);
 
   useEffect(() => {
-    setCategory([...new Set(data.map((item) => item.category?.name))]);
-  }, [data]);
+    setCategory([...new Set(products.map((item) => item.category?.name))]);
+  }, [products]);
 
   let navigate = useNavigate();
 
   let handleCate = (citem) => {
-    let cateFill = data.filter((item) => item.category?.name === citem);
+    let cateFill = products.filter((item) => item.category?.name === citem);
     navigate('/products', { state: { cateData: cateFill, category: citem } });
   };
 

@@ -3,22 +3,24 @@ import { Link } from 'react-router-dom'
 import { IoIosArrowDown } from 'react-icons/io'
 import { FaCartPlus } from 'react-icons/fa'
 import { HiOutlineBars3CenterLeft } from 'react-icons/hi2'
-import { useSelector } from 'react-redux'
-import { apiData } from './ContextApi'
 import { ReactTyped } from 'react-typed'
+import { ApiData } from './ContextApi'
+import { useSelector } from 'react-redux'
 
 const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, searchFilter, activeIndex, itemRefs, handleCate, handleSearchShow, handleSearchClick}) => {
 
-  let rdata = useSelector((state)=>state.product.cartItem)
-  let totalQuantity = rdata.reduce((total, index)=>total + index.qun, 0)
-  let data = useContext(apiData)
+  let {products} = useContext(ApiData)
+
   let [categories, setCategories] = useState([])
   
     useEffect(()=>{
-      setCategories([...new Set(data.map((item)=>item.category?.name))])
-    },[data])
+      setCategories([...new Set(products.map((item)=>item.category?.name))])
+    },[products])
 
   let [typedText, setTypedText] = useState("");
+
+  const {items} = useSelector((state) => state.product);
+  let totalQuantity = items.reduce((total, index)=>total + index.qun, 0)
 
 
   return (
@@ -33,7 +35,7 @@ const FixedMenu = ({categoryShow, searchRef, handleSearchValue, handkeKeyDown, s
           <div className='absolute top-6 left-0 bg-indigo-950 pt-4 pb-2 capitalize z-[99999] w-full opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all ease-in-out duration-300'>
             <ul>
               {categoryShow.map((item, index) => (
-                <li key={index} onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item?.name}</li>
+                <li key={index} onClick={() => handleCate(item)} className='text-white py-2 hover:bg-indigo-900 px-2 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[14px] font-bold font-lat'>{item}</li>
               ))}
             </ul>
           </div>

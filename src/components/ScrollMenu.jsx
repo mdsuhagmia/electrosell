@@ -4,21 +4,21 @@ import { FaCartPlus, FaRegHeart } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { IoMenu } from 'react-icons/io5'
 import logofull from '../assets/logofull.png'
-import { apiData } from './ContextApi'
+import { ApiData } from './ContextApi'
 import { ReactTyped } from 'react-typed'
 
 const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter, activeIndex, itemRefs, handleSearchShow, handleLeftMenu, handleSearchClick}) => {
 
-  let rdata = useSelector((state)=>state.product.cartItem)
-  let totalQuantity = rdata.reduce((total, index)=>total + index.qun, 0)
-  let wdata = useSelector((state)=>state.product.wishlistItem)
-
-  let data = useContext(apiData)
+  const {items} = useSelector((state) => state.product);
+  let totalQuantity = items.reduce((total, index)=>total + index.qun, 0)
+  const wishItems = useSelector((state) => state.product.wishItems);
+  
+  let {products} = useContext(ApiData)
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category?.name))])
-  }, [data])
+    setCategories([...new Set(products.map((item) => item.category?.name))])
+  }, [products])
 
   return (
     <div className=''>
@@ -70,7 +70,7 @@ const ScrolldMenu = ({searchRef, handleSearchValue, handkeKeyDown, searchFilter,
               <Link to={"/wishlist"}>
                 <FaRegHeart className='text-3xl text-white hover:text-gray-300' />
                 <div className='absolute -top-2 -right-3'>
-                  <h4 className={`${wdata.length < 1 ? "text-red-500 bg-gray-100 shadow h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md" : "text-indigo-950 bg-gray-100 h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md"}`}>{wdata.length}</h4>
+                  <h4 className={`${wishItems.length < 1 ? "text-red-500 bg-gray-100 shadow h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md" : "text-indigo-950 bg-gray-100 h-5 w-5 flex leading-5 justify-center rounded-full font-lat font-bold text-md"}`}>{wishItems.length}</h4>
                 </div>
               </Link>
             </div>

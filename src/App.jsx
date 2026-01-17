@@ -25,6 +25,11 @@ import ActivatePage from "./pages/ActivatePage";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import DashboardHome from "./components/dashboard/DashboardHome";
+import ResetPassword from "./components/dashboard/ResetPassword";
+import UpdatePassword from "./components/dashboard/UpdatePassword";
+import { Toaster } from "react-hot-toast";
+import ForgotPassword from "./pages/ForgotPassword";
+import MyOrders from "./components/dashboard/MyOrders";
 
 const routing = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +47,8 @@ const routing = createBrowserRouter(
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/shippingdelivery" element={<ShippingDelivery />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/cart"
           element={
@@ -96,8 +103,10 @@ const routing = createBrowserRouter(
           }
         >
           <Route index element={<DashboardHome/>}></Route>
+          <Route path="/dashboard/my-order" element={<MyOrders/>}></Route>
           <Route path="/dashboard/profile" element={<Profile/>}></Route>
           <Route path="/dashboard/settings" element={<Settings/>}></Route>
+          <Route path="/dashboard/updatepassword" element={<UpdatePassword/>}></Route>
         </Route>
       </Route>
 
@@ -110,6 +119,7 @@ function App() {
   return (
     <AuthProvider>
       <RouterProvider router={routing} />
+      <Toaster position="top-center" reverseOrder={false} />
     </AuthProvider>
   );
 }

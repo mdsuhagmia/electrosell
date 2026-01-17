@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -9,11 +9,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      // ব্যাকএন্ড কল: /api/auth/user/me
-      const res = await api.get("/auth/user/me");
-      
-      // আপনার ব্যাকএন্ড সরাসরি { user: ... } পাঠাচ্ছে
-      if (res.data && res.data.user) {
+      const res = await api.get("/auth/user/me", { withCredentials: true });
+      if (res.data?.user) {
         setUser(res.data.user);
       } else {
         setUser(null);
@@ -27,12 +24,42 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const reqInterceptor = api.interceptors.request.use(
+      (config) => config,
+      (error) => Promise.reject(error)
+    );
+
+    const resInterceptor = api.interceptors.response.use(
+      (res) => res,
+      async (error) => {
+        const originalRequest = error.config;
+
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          try {
+            await api.get("/auth/refresh-token", { withCredentials: true });
+            return api(originalRequest);
+          } catch (err) {
+            setUser(null);
+            return Promise.reject(err);
+          }
+        }
+
+        return Promise.reject(error);
+      }
+    );
+
     fetchUser();
+
+    return () => {
+      api.interceptors.request.eject(reqInterceptor);
+      api.interceptors.response.eject(resInterceptor);
+    };
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading, fetchUser }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

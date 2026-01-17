@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Container from './Container'
-import { apiData } from './ContextApi'
+import { ApiData } from './ContextApi'
 import logofull from '../assets/logofull.png'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logofull.png'
@@ -13,16 +13,16 @@ import { useSelector } from 'react-redux'
 
 const MobileMenu = () => {
 
-  let data = useContext(apiData)
+  let {products} = useContext(ApiData)
     let [categoryShow, setCategoryShow] = useState([])
   
     useEffect(()=>{
-      setCategoryShow([...new Set(data.map((item)=>item.category?.name))])
-    },[data])
+      setCategoryShow([...new Set(products.map((item)=>item.category?.name))])
+    },[products])
   
     let navigate = useNavigate()
     let handleCate = (citem)=>{
-      let cateFill = data.filter((item)=>item.category?.name === citem)
+      let cateFill = products.filter((item)=>item.category?.name === citem)
       navigate('/products', { state: { cateData: cateFill, category: citem } })
       setLeftMenu(false)
     }
@@ -34,12 +34,11 @@ const MobileMenu = () => {
       if(e.target.value == ""){
         setSearchFilter([])
       }else{
-        let searchFil = data.filter((item)=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+        let searchFil = products.filter((item)=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
         setSearchFilter(searchFil)
       }
     }
   
-    //! search btn click logic
     let handleSearchClick = () => {
       if (searchFilter.length > 0) {
         navigate('/products', { state: { cateData: searchFilter, category: 'Search Results' } });
@@ -51,7 +50,6 @@ const MobileMenu = () => {
     let searchRef = useRef()
     useEffect(()=>{
       let handleClickOutsite = (e)=>{
-        console.log(e.target.value)
         if(searchRef.current && !searchRef.current.contains(e.target)){
           setSearchFilter([])
           setSearch("")
@@ -129,14 +127,14 @@ const MobileMenu = () => {
       return ()=> document.removeEventListener("mousedown", handleClickOutsite)
     },[leftMenu])
 
-  let rdata = useSelector((state) => state.product.cartItem)
-  let totalQuantity = rdata.reduce((total, index) => total + index.qun, 0)
+  let {items} = useSelector((state) => state.product)
+  let totalQuantity = items.reduce((total, index) => total + index.qun, 0)
 
   let [categories, setCategories] = useState([])
 
   useEffect(() => {
-    setCategories([...new Set(data.map((item) => item.category?.name))])
-  }, [data])
+    setCategories([...new Set(products.map((item) => item.category?.name))])
+  }, [products])
 
   return (
     <nav className={`py-3 shadow md:hidden ${isSticky == true ? "fixed top-0 w-full bg-violet-950 z-[9999] left-0" : "bg-indigo-950"}`}>

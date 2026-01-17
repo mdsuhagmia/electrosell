@@ -1,23 +1,34 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 
-let apiData = createContext()
-const ContextApi = ({children}) => {
+export const ApiData = createContext();
 
-  let [info, setInfo] = useState([])
-  let getData = ()=>{
-    axios.get("https://es-back-xv9z.onrender.com/api/products").then((response)=>{
-      setInfo(response.data.payload.Products)
-    })
+const ContextApi = ({ children }) => {
+
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const getProducts = async () => {
+    const res = await axios.get("https://es-back-xv9z.onrender.com/api/products")
+    setProducts(res.data.payload.Products || [])
   }
-  useEffect(()=>{
-    getData()
-  },[])
+
+
+  useEffect(() => {
+    setLoading(true)
+    Promise.all([
+      getProducts(),
+    ]).finally(() => setLoading(false))
+  }, [])
+
   return (
-    <div>
-      <apiData.Provider value={info}>{children}</apiData.Provider>
-    </div>
+    <ApiData.Provider value={{
+      products,
+      loading,
+    }}>
+      {children}
+    </ApiData.Provider>
   )
 }
 
-export {ContextApi, apiData}
+export { ContextApi }

@@ -132,7 +132,8 @@ const { user } = useAuth();
                 </p>
               </NavLink>
             </div>
-            {user ? <div>
+            {user ? (
+              <div>
                 <NavLink
                   to={"/dashboard"}
                   className={({ isActive }) =>
@@ -141,12 +142,19 @@ const { user } = useAuth();
                     }`
                   }
                 >
-                  <MdDashboard className="text-[18px] group-hover:text-violet-600 ml-2" />
-                  <p className="text-[14px] font-semibold font-jose group-hover:text-violet-600">
-                    Dashboard
-                  </p>
+                  {({isActive}) => (
+                    <div className="pl-4">
+                    <img
+                      src={user.image}
+                      alt={user.name}
+                      className={`w-12 h-12 rounded-full object-cover ${isActive ? " border-2 border-violet-500" : " border-2 border-gray-300" }`}
+                    />
+                  </div>
+                  )}
                 </NavLink>
-              </div> : <div>
+              </div>
+            ) : (
+              <div>
                 <NavLink
                   to={"/login"}
                   className={({ isActive }) =>
@@ -160,7 +168,8 @@ const { user } = useAuth();
                     Login / SignUp
                   </p>
                 </NavLink>
-              </div> }
+              </div>
+            )}
           </div>
           <div
             className="md:hidden"

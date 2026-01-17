@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Container from './Container'
-import { apiData } from './ContextApi'
+import { ApiData } from './ContextApi'
 import FixedMenu from './FixedMenu'
 import { useNavigate } from 'react-router-dom'
 import ScrolldMenu from './ScrollMenu'
@@ -10,17 +10,18 @@ import { FaFacebookF, FaFacebookMessenger, FaInstagram, FaPhone, FaTiktok, FaWha
 import { MdEmail } from 'react-icons/md'
 
 const Menu = () => {
-  let data = useContext(apiData)
+  let {products} = useContext(ApiData)
   let [categoryShow, setCategoryShow] = useState([])
 
   useEffect(()=>{
-    setCategoryShow([...new Set(data.map((item)=>item.category?.name))])
-  },[data])
+    setCategoryShow([...new Set(products.map((item)=>item.category?.name))])
+  },[products])
 
   let navigate = useNavigate()
   let handleCate = (citem)=>{
-    let cateFill = data.filter((item)=>item.category?.name === citem)
+    let cateFill = products.filter((item)=>item.category?.name === citem)
     navigate('/products', { state: { cateData: cateFill, category: citem } })
+    window.scrollTo({top: 0})
   }
 
   let [search, setSearch] = useState("")
@@ -30,7 +31,7 @@ const Menu = () => {
     if(e.target.value == ""){
       setSearchFilter([])
     }else{
-      let searchFil = data.filter((item)=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+      let searchFil = products.filter((item)=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
       setSearchFilter(searchFil)
     }
   }
@@ -47,7 +48,6 @@ const Menu = () => {
   let searchRef = useRef()
   useEffect(()=>{
     let handleClickOutsite = (e)=>{
-      console.log(e.target.value)
       if(searchRef.current && !searchRef.current.contains(e.target)){
         setSearchFilter([])
         setSearch("")
@@ -170,7 +170,7 @@ const Menu = () => {
               {categoryShow.map((item, index) => (
                 <li key={index} onClick={
                   () =>{
-                    handleCate(item.name)
+                    handleCate(item)
                     setLeftMenu(false)
                   }
                 } className='text-indigo-950 py-2 hover:text-indigo-500 hover:px-6 transition-all ease-in-out duration-300 cursor-pointer text-[18px] font-bold font-lat border-b border-b-[#00000043]'>{item}</li>

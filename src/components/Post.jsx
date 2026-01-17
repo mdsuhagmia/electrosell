@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaCartPlus, FaHeart } from 'react-icons/fa'
 import { MdAutorenew } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { addToCart, addToWishlist } from './slice/productSlice'
+// import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+// import { addToCartThunk } from './slice/productSlice'
 import { CiZoomIn } from 'react-icons/ci'
 import { RiCloseLargeFill } from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
+import { useAuth } from '../context/AuthContext'
+import { addToCart, addToWishlist } from './slice/productSlice'
 import toast from 'react-hot-toast'
+// import toast from 'react-hot-toast'
+// import { useAuth } from '../context/AuthContext'
+// import api from '../api/axios'
 
 const Post = ({ allPage, cateFilShow, list }) => {
 
@@ -28,30 +34,62 @@ const Post = ({ allPage, cateFilShow, list }) => {
     setShowAll(true)
   }
 
-  let user = useSelector((state)=>state.product.user)
-  let navigate = useNavigate()
-  let dispatch = useDispatch()
-  let handleCart = (item)=>{
-    if(!user){
-      navigate("/login")
-    }else{
-      dispatch(addToCart({...item, qun: 1}))
-      toast.success("Add to Cart Successfully")
-    }
-  }
+  // let {user} = useAuth();
+  // const navigate = useNavigate();
+  
+  // const handleAddToCart = async (item)=>{
+  //   if (!user) {
+  //     toast.error("Please login first!");
+  //     navigate("/login");
+  //     return;
+  //   }
+  //   try {
+  //     const response = await api.post("/cart/add", {
+  //     userId: user._id,
+  //     productId: item._id
+  //     })
+  //     if (response.status === 200 || response.status === 201) {
+  //     toast.success("Product added to cart!");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Faild add to cart.")
+  //     console.error(error)
+  //   }
+  // }
 
-  let wishlist = useSelector((state)=>state.product.wishlistItem)
+  // const dispatch = useDispatch();
 
-  let handleWish = (item) => {
-  const alreadyExist = wishlist.find((wishIte) => wishIte.id === item.id)
+//   const handleCart = (product) => {
+//   if (!user) {
+//     toast.error("Please login first");
+//     return;
+//   }
 
-  if (alreadyExist) {
-    toast.error("Already in Wishlist!")
-  } else {
-    dispatch(addToWishlist(item))
-    toast.success("Added to Wishlist Successfully!")
-  }
-}
+//   // এই অবজেক্টটি productData হিসেবে যাবে
+//   const cartData = {
+//     userId: user._id,       // লগইন করা ইউজারের আইডি
+//     productId: product._id, // প্রোডাক্টের আইডি
+//     qun: 1                  // প্রাথমিক কোয়ান্টিটি
+//   };
+
+//   dispatch(addToCartThunk(cartData))
+//     .unwrap()
+//     .then(() => toast.success("Added to cart"))
+//     .catch((err) => toast.error(err.message));
+// };
+
+//   let wishlist = useSelector((state)=>state.product.wishlistItem)
+
+//   let handleWish = (item) => {
+//   const alreadyExist = wishlist.find((wishIte) => wishIte.id === item.id)
+
+//   if (alreadyExist) {
+//     toast.error("Already in Wishlist!")
+//   } else {
+//     dispatch(addToWishlist(item))
+//     toast.success("Added to Wishlist Successfully!")
+//   }
+// }
 
   let [zoomIn, setZoomIn] = useState(false)
   let handleZoomIn = (item) => {
@@ -69,6 +107,40 @@ const Post = ({ allPage, cateFilShow, list }) => {
     return () => document.removeEventListener("mousedown", handleClickOutsite)
   }, [zoomIn])
 
+  const dispatch = useDispatch();
+  const {user} = useAuth();
+  
+  const handleCartAdd = (item) => {
+    if (user && user._id) {
+      const cartData = {
+        userId: user._id,
+        productId: item._id,
+        qun: 1,
+      };
+      dispatch(addToCart(cartData))
+        .unwrap()
+        .then(() => toast.success("Product added to cart successfully!"))
+        .catch((err) => toast.error("Failed to add: " + err.message));
+    } else {
+      toast.error("Please login first!");
+    }
+  };
+
+  const handleWishlist = (item)=>{
+    if (user && user._id) {
+      const wishData = {
+        userId: user._id,
+        productId: item._id
+      };
+      dispatch(addToWishlist(wishData))
+        .unwrap()
+        .then(() => toast.success("Add to Wishlist Successfully"))
+        .catch((err) => toast.error("Failed to add: " + err.message));
+    } else {
+      toast.error("Please login first!");
+    }
+  }
+
   return (
     <div>
       {catefilterSl.length > 0 ? <div className={`${list == "active" ? "grid grid-cols-1" : "grid grid-cols-2 md:grid-cols-3 gap-x-3"}`}>
@@ -77,17 +149,17 @@ const Post = ({ allPage, cateFilShow, list }) => {
             <div className='relative group'>
               <Link to={`/products/${item.slug}`}>
                 <img src={item.images[0]} alt={item.title}
-                  className="w-full h-70 object-contain px-4 py-2 bg-gra-100 bg-gray-300 rounded-t-[5px]" />
+                  className="w-full h-70 object-contain bg-gra-100 bg-gray-300 rounded-t-[5px]" />
               </Link>
               <div className='absolute bottom-0 left-2 opacity-0 group-hover:opacity-100 py-2'>
                 <div className='pb-4'>
                   <div className='cursor-pointer text-[#767676] text-[20px] font-dms font-medium hover:text-[#262626]'>
-                    <FaCartPlus onClick={()=>handleCart(item)} />
+                    <FaCartPlus onClick={()=>handleCartAdd(item)} />
                   </div>
                 </div>
                 <div className='pb-4'>
-                  <div className='cursor-pointer text-[#767676] text-[20px] font-dms font-medium hover:text-[#262626]'>
-                    <FaHeart onClick={()=>handleWish(item)} />
+                  <div onClick={()=>handleWishlist(item)} className='cursor-pointer text-[#767676] text-[20px] font-dms font-medium hover:text-[#262626]'>
+                    <FaHeart  />
                   </div>
                 </div>
                 <div className='pb-4'>
@@ -101,7 +173,10 @@ const Post = ({ allPage, cateFilShow, list }) => {
               <Link>
                 <h3 className="text-sm font-semibold line-clamp-2 hover:underline">{item.title}</h3>
               </Link>
-              <p className="mt-1 text-lg font-bold">${item.price}</p>
+              <div className='flex items-center gap-x-4'>
+                <p className="mt-1 text-lg font-bold">ট-{item.discountPrice}</p>
+                <p className="mt-1 text-lg font-bold text-red-500 line-through">ট-{item.price}</p>
+              </div>
             </div>
           </div>
         ))}
@@ -111,17 +186,17 @@ const Post = ({ allPage, cateFilShow, list }) => {
             <div className='relative group overflow-hidden'>
               <Link to={`/products/${item.slug}`}>
                 <img src={item.images[0]} alt={item.title}
-                  className="w-full h-70 object-contain px-8 py-4 bg-gra-100 bg-gray-300 rounded-t-[5px]" />
+                  className="w-full h-70 object-contain bg-gra-100 bg-gray-300 rounded-t-[5px]" />
               </Link>
               <div className='absolute bottom-0 -left-14 group-hover:left-2 opacity-0 group-hover:opacity-100 py-2 transition-all duration-500 ease-in-out'>
                 <div className='pb-4'>
                   <div className='cursor-pointer text-[#767676] text-[20px] font-dms font-medium hover:text-[#262626] pl-1'>
-                    <FaCartPlus onClick={()=>handleCart(item)} />
+                    <FaCartPlus onClick={()=>handleCartAdd(item)} />
                   </div>
                 </div>
                 <div className='pb-4'>
                   <div className='cursor-pointer text-[#767676] text-[20px] font-dms font-medium hover:text-[#262626] pl-1'>
-                    <FaHeart onClick={()=>handleWish(item)} />
+                    <FaHeart onClick={()=>handleWishlist(item)}  />
                   </div>
                 </div>
                 <div className='pb-4'>
@@ -135,7 +210,10 @@ const Post = ({ allPage, cateFilShow, list }) => {
               <Link>
                 <h3 className="text-sm font-semibold line-clamp-2 hover:underline">{item.title}</h3>
               </Link>
-              <p className="mt-1 text-lg font-bold">${item.price}</p>
+              <div className='flex items-center gap-x-4'>
+                <p className="mt-1 text-lg font-bold">ট-{item.discountPrice}</p>
+                <p className="mt-1 text-lg font-bold text-red-500 line-through">ট-{item.price}</p>
+              </div>
             </div>
           </div>
         ))}
